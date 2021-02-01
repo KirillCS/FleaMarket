@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace FleaMarket.Models
@@ -25,6 +26,11 @@ namespace FleaMarket.Models
         [Required]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public bool TradeEnabled { get; set; }
+        [Required]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public DateTime PublishingDate { get; set; }
+        [Required]
+        public string UserId { get; set; }
 
         [NotMapped]
         public PriceType PriceType =>
@@ -34,5 +40,7 @@ namespace FleaMarket.Models
                 null => PriceType.Contract,
                 _ => PriceType.Definite
             };
+
+        public User User { get; set; }
     }
 }
