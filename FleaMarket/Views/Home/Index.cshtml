@@ -2,7 +2,96 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="row">
+    <div class="col-md-2">
+        <h5>All categories</h5>
+        <ul class="list-unstyled mb-0">
+            @for (int i = 0; i < 3; i++)
+            {
+                <li><a class="card-link" href="#">Technics</a></li>
+                <li><a class="card-link" href="#">Cars</a></li>
+                <li><a class="card-link" href="#">Furniture</a></li>
+                <li><a class="card-link" href="#">Repair</a></li>
+            }
+            <li class="mt-2"><a class="card-link" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">Show all...</a></li>
+        </ul>
+        <div class="collapse" id="collapseExample">
+            <hr />
+            <ul class="list-unstyled mt-0">
+                @for (int i = 0; i < 2; i++)
+                {
+                    <li><a class="card-link" href="#">Technics</a></li>
+                    <li><a class="card-link" href="#">Cars</a></li>
+                    <li><a class="card-link" href="#">Furniture</a></li>
+                    <li><a class="card-link" href="#">Repair</a></li>
+                }
+            </ul>
+        </div>
+    </div>
+
+    <div class="col-md-9">
+        <h5>Items</h5>
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item">
+                <div class="row">
+                    <div class="col-3">
+                        <img src="~/img/78e85155f3b3f025_large.jpg" alt="Notebook" width="100%" />
+                    </div>
+                    <div class="col-9">
+                        <a class="card-link text-dark font-weight-bold text-wrap" href="#">Notebook</a>
+                        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
+                        <p class="font-weight-bold">Contract price</p>
+                    </div>
+                </div>
+            </li>
+            <li class="list-group-item">
+                <div class="row">
+                    <div class="col-3">
+                        <img src="~/img/plain-round-neck-tshirt-500x500.jpg" alt="T-Shirt" width="100%" />
+                    </div>
+                    <div class="col-9">
+                        <a class="card-link text-dark font-weight-bold text-wrap" href="#">T-Shirt</a>
+                        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
+                        <p class="font-weight-bold">5$</p>
+                    </div>
+                </div>
+            </li>
+            <li class="list-group-item">
+                <div class="row">
+                    <div class="col-3">
+                        <img src="~/img/brimnes-tv-bench-black__0851278_PE725293_S5.jpg" alt="TV" width="100%" />
+                    </div>
+                    <div class="col-9">
+                        <a class="card-link text-dark font-weight-bold text-wrap" href="#">TV</a>
+                        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
+                        <p class="font-weight-bold">200$</p>
+                    </div>
+                </div>
+            </li>
+            <li class="list-group-item">
+                <div class="row">
+                    <div class="col-3">
+                        <img src="~/img/car_billboard-image.jpg" alt="Car" width="100%" />
+                    </div>
+                    <div class="col-9">
+                        <a class="card-link text-dark font-weight-bold text-wrap" href="#">Car</a>
+                        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
+                        <p class="font-weight-bold">Contract price</p>
+                    </div>
+                </div>
+            </li>
+            <li class="list-group-item">
+                <div class="row">
+                    <div class="col-3">
+                        <img src="~/img/GUEST_16f5549b-5bed-40b2-99b6-0af4dbaaf61a.jpg" alt="Stroller" width="100%" />
+                    </div>
+                    <div class="col-9">
+                        <a class="card-link text-dark font-weight-bold text-wrap" href="#">Stroller</a>
+                        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
+                        <p class="font-weight-bold">50$</p>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
 </div>
