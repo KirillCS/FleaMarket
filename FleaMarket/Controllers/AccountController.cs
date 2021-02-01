@@ -33,7 +33,7 @@ namespace FleaMarket.Controllers
                 if (result.Succeeded)
                 {
                     await signInManager.SignInAsync(user, false);
-                    return RedirectToAction("/");
+                    return Redirect("/");
                 }
 
                 foreach (var error in result.Errors)
@@ -43,6 +43,13 @@ namespace FleaMarket.Controllers
             }
 
             return View(model);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Logout()
+        {
+            await signInManager.SignOutAsync();
+            return Redirect("/");
         }
     }
 }
