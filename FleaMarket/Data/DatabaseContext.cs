@@ -12,7 +12,15 @@ namespace FleaMarket.Data
     {
         public DatabaseContext(DbContextOptions<DatabaseContext> options) : base(options)
         {
-            Database.EnsureCreated();
+
+        }
+
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            base.OnModelCreating(builder);
+            builder.Entity<Item>()
+                   .Property(i => i.TradeEnabled)
+                   .HasDefaultValue(false);
         }
     }
 }
