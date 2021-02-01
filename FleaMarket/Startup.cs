@@ -28,7 +28,11 @@ namespace FleaMarket
         {
             services.AddDbContext<DatabaseContext>(options => options.UseSqlServer(Configuration.GetConnectionString("Default")));
 
-            services.AddIdentity<User, IdentityRole>()
+            services.AddIdentity<User, IdentityRole>(options =>
+            {
+                options.Password.RequireNonAlphanumeric = false;
+                options.User.AllowedUserNameCharacters = string.Empty;
+            })
                     .AddEntityFrameworkStores<DatabaseContext>();
 
             services.AddControllersWithViews();

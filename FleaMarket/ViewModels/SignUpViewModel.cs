@@ -14,7 +14,7 @@ namespace FleaMarket.ViewModels
         public string Password { get; set; }
         [Required(ErrorMessage = "You must confirm your password")]
         [DataType(DataType.Password)]
-        [Display(Name = "Password")]
+        [Display(Name = "Password confirmation")]
         [Compare("Password", ErrorMessage = "Passwords don't match")]
         public string ConfirmPassword { get; set; }
     }
