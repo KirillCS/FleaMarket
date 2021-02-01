@@ -1,12 +1,12 @@
-﻿@model SignUpViewModel
+﻿@model LoginViewModel
 @{
-    ViewData["Title"] = "Sign up";
+    ViewData["Title"] = "Login";
 }
 
 <div class="row mt-5">
     <div class="col-xl-5 col-lg-6 col-md-7 col-sm-8 mx-auto">
-        <h4 class="text-center">Sign up</h4>
-        <form asp-controller="account" asp-action="signup" method="post">
+        <h4 class="text-center">Login</h4>
+        <form asp-controller="account" asp-action="login" method="post">
             <div class="form-group">
                 <label asp-for="Name"></label>
                 <input class="form-control" asp-for="Name" autocomplete="off">
@@ -17,16 +17,12 @@
                 <input class="form-control" asp-for="Password">
                 <span class="d-inline invalid-feedback" asp-validation-for="Password"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="ConfirmPassword"></label>
-                <input class="form-control" asp-for="ConfirmPassword">
-                <span class="d-inline invalid-feedback" asp-validation-for="ConfirmPassword"></span>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" asp-for="IsPersistent">
+                <label class="form-check-label" asp-for="IsPersistent"></label>
             </div>
             <div class="d-inline invalid-feedback error-list" asp-validation-summary="ModelOnly"></div>
-            <input class="btn btn-primary btn-block mt-4" type="submit" value="Sign up" />
+            <input class="btn btn-primary btn-block mt-4" type="submit" value="Login" />
         </form>
-        <div class="d-block text-center mt-2">
-            <a class="card-link small" asp-controller="account" asp-action="login">Already have account? Login...</a>
-        </div>
     </div>
 </div>

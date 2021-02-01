@@ -46,9 +46,35 @@ namespace FleaMarket.Controllers
         }
 
         [HttpGet]
+        public IActionResult Login(string returnUrl = null) =>
+            View(new LoginViewModel(returnUrl));
+
+        [HttpPost]
+        public async Task<IActionResult> Login(LoginViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var result = await this.signInManager.PasswordSignInAsync(model.Name, model.Password, model.IsPersistent, false);
+                if (result.Succeeded)
+                {
+                    if (!string.IsNullOrEmpty(model.ReturnUrl) && Url.IsLocalUrl(model.ReturnUrl))
+                    {
+                        return Redirect(model.ReturnUrl);
+                    }
+
+                    return Redirect("/");
+                }
+
+                ModelState.AddModelError(string.Empty, "Incorrect login or password");
+            }
+
+            return View(model);
+        }
+
+        [HttpGet]
         public async Task<IActionResult> Logout()
         {
-            await signInManager.SignOutAsync();
+            await this.signInManager.SignOutAsync();
             return Redirect("/");
         }
     }
