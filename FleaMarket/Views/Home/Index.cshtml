@@ -48,7 +48,8 @@
                         </div>
                         <div class="d-flex justify-content-between flex-column p-0 pl-3">
                             <h5><a class="card-link text-wrap" href="#">@item.Name</a></h5>
-                            <div class="mb-1 limited-text line-clamp-1">Some category@(item.TradeEnabled ? ", exchange is possible" : "")</div>
+                            <div class="mb-1 limited-text line-clamp-1">
+                                <a class="card-link" href="#">Some category</a>@(item.TradeEnabled ? ", exchange is possible" : "")</div>
                             <div class="text-black-50 mb-2 limited-text line-clamp-2 hidden-sm">@item.Description</div>
                             <div class="d-flex flex-row flex-wrap justify-content-between align-items-center">
                                 <h5>Price: @(item.PriceType == PriceType.Definite ? item.Price?.ToString("C2", CultureInfo.CreateSpecificCulture("en-US")) : item.PriceType.ToString())</h5>

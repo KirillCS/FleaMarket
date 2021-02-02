@@ -10,6 +10,8 @@ namespace FleaMarket.Data
 
         public DbSet<Item> Items { get; set; }
 
+        public DbSet<Category> Categories { get; set; }
+
         public DatabaseContext(DbContextOptions<DatabaseContext> options) : base(options) { }
 
         protected override void OnModelCreating(ModelBuilder builder)

@@ -42,6 +42,8 @@ namespace FleaMarket.Models
 
         public List<Image> Images { get; set; }
 
+        public List<Category> Categories { get; set; }
+
 
         [NotMapped]
         public PriceType PriceType =>
