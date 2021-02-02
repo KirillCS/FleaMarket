@@ -1,12 +1,7 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using FleaMarket.Data;
 using FleaMarket.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -34,6 +29,8 @@ namespace FleaMarket
                 options.User.AllowedUserNameCharacters = string.Empty;
             })
                     .AddEntityFrameworkStores<DatabaseContext>();
+
+            services.Configure<ApplicationConfigurations>(this.Configuration.GetSection("ApplicationConfigurations"));
 
             services.AddControllersWithViews();
         }

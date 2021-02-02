@@ -1,6 +1,13 @@
 ﻿@model HomeViewModel
+@inject IOptions<ApplicationConfigurations> Configuration
 @{
     ViewData["Title"] = "Home Page";
+}
+
+@functions 
+{
+    public string SetImagePath(Item item) =>
+        Configuration.Value.ImagesPath + (item.HasCover ? item.Cover.Path : Configuration.Value.ImagePlaceholderPath);
 }
 
 <div class="row">
@@ -37,7 +44,7 @@
                 <li class="list-group-item">
                     <div class="d-flex align-items-center">
                         <div class="img-cover">
-                            <a class="card-link text-wrap" href="#"><img src="~/img/car_billboard-image.jpg" alt="@item.Name" /></a>
+                            <a class="card-link text-wrap" href="#"><img src="@Html.Raw(SetImagePath(item))" alt="@item.Name" /></a>
                         </div>
                         <div class="d-flex justify-content-between flex-column p-0 pl-3">
                             <h5><a class="card-link text-wrap" href="#">@item.Name</a></h5>
