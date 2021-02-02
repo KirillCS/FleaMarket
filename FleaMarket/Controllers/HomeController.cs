@@ -1,27 +1,23 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
-using FleaMarket.Models;
 using FleaMarket.ViewModels;
+using FleaMarket.Data;
 
 namespace FleaMarket.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> logger;
+        private readonly DatabaseContext context;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(DatabaseContext context)
         {
-            this.logger = logger;
+            this.context = context;
         }
 
         public IActionResult Index()
         {
-            return View();
+            var model = new HomeViewModel(this.context.Items);
+            return View(model);
         }
 
         public IActionResult Privacy()
