@@ -114,6 +114,18 @@ body {
     overflow: hidden;
 }
 
+@media (max-width: 576px) {
+    .img-cover {
+        height: 100px;
+        min-width: 130px;
+        max-width: 130px;
+    }
+
+    .hidden-sm {
+        display: none;
+    }
+}
+
 .img-cover img {
     object-fit: cover;
     height: 100%;
