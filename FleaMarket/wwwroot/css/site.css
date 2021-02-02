@@ -79,3 +79,43 @@ body {
     margin: 0;
     padding: 0;
 }
+
+.limited-text {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+}
+.line-clamp-1 {
+    -webkit-line-clamp: 1;
+}
+.line-clamp-2 {
+    -webkit-line-clamp: 2;
+}
+.line-clamp-3 {
+    -webkit-line-clamp: 3;
+}
+.line-clamp-4 {
+    -webkit-line-clamp: 4;
+}
+.line-clamp-5 {
+    -webkit-line-clamp: 5;
+}
+
+.img-cover {
+    position: relative;
+    height: 150px;
+    min-width: 200px;
+    max-width: 200px;
+    padding: 0;
+    border: 1px solid lightgray;
+    border-radius: 3px;
+    overflow: hidden;
+}
+
+.img-cover img {
+    object-fit: cover;
+    height: 100%;
+    width: 100%;
+}

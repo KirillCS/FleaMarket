@@ -7,10 +7,7 @@ namespace FleaMarket.ViewModels
     {
         public IEnumerable<Item> Items { get; set; }
 
-        public HomeViewModel()
-        {
-
-        }
+        public HomeViewModel() { }
 
         public HomeViewModel(IEnumerable<Item> items)
         {

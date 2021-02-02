@@ -16,19 +16,25 @@ namespace FleaMarket.Models
         [Required]
         [Key]
         public int Id { get; set; }
+
         [Required]
         [MaxLength(256)]
         public string Name { get; set; }
+
         [MaxLength(4096)]
         public string Description { get; set; }
+
         [DataType(DataType.Currency)]
         public decimal? Price { get; set; }
+
         [Required]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public bool TradeEnabled { get; set; }
+
         [Required]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public DateTime PublishingDate { get; set; }
+
         [Required]
         public string UserId { get; set; }
 

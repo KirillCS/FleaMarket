@@ -35,16 +35,18 @@
             @foreach (var item in Model.Items)
             {
                 <li class="list-group-item">
-                    <div class="row">
-                        <div class="col-3">
-                            <a class="card-link text-wrap" href="#"><img src="~/img/78e85155f3b3f025_large.jpg" alt="Notebook" width="100%" /></a>
+                    <div class="d-flex align-items-center">
+                        <div class="img-cover">
+                            <a class="card-link text-wrap" href="#"><img src="~/img/GUEST_16f5549b-5bed-40b2-99b6-0af4dbaaf61a.jpg" alt="Notebook" /></a>
                         </div>
-                        <div class="col-9">
+                        <div class="d-flex justify-content-between flex-column p-0 pl-3">
                             <h5><a class="card-link text-wrap" href="#">@item.Name</a></h5>
-                            <div class="mb-1">Some category@(item.TradeEnabled ? " exchange is possible" : "")</div>
-                            <div class="text-black-50 mb-2">@item.Description</div>
-                            <h5 class="mb-2">Price: @(item.PriceType == PriceType.Definite ? item.Price?.ToString("C2", CultureInfo.CreateSpecificCulture("en-US")) : item.PriceType.ToString())</h5>
-                            <div class="float-right small text-muted">@item.PublishingDate</div>
+                            <div class="mb-1 limited-text line-clamp-1">Some category@(item.TradeEnabled ? ", exchange is possible" : "")</div>
+                            <div class="text-black-50 mb-2 limited-text line-clamp-2">@item.Description</div>
+                            <div class="d-flex flex-row flex-wrap justify-content-between align-items-center">
+                                <h5>Price: @(item.PriceType == PriceType.Definite ? item.Price?.ToString("C2", CultureInfo.CreateSpecificCulture("en-US")) : item.PriceType.ToString())</h5>
+                                <div class="small text-muted">@item.PublishingDate</div>
+                            </div>
                         </div>
                     </div>
                 </li>
