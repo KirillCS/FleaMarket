@@ -12,26 +12,12 @@
 
 <div class="row">
     <div class="col-md-3">
-        <h4>All categories</h4>
-        <ul class="list-unstyled mb-0">
-            @for (int i = 0; i < 3; i++)
-            {
-                <li><a class="card-link" href="#">Technics</a></li>
-                <li><a class="card-link" href="#">Cars</a></li>
-                <li><a class="card-link" href="#">Furniture</a></li>
-                <li><a class="card-link" href="#">Repair</a></li>
-            }
-            <li class="mt-2"><a class="card-link" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">Show all...</a></li>
-        </ul>
-        <div class="collapse" id="collapseExample">
-            <hr />
-            <ul class="list-unstyled mt-0">
-                @for (int i = 0; i < 2; i++)
+        <div class="jumbotron py-4">
+            <h4>All categories</h4>
+            <ul class="list-unstyled m-0">
+                @foreach (var category in Model.Categories)
                 {
-                    <li><a class="card-link" href="#">Technics</a></li>
-                    <li><a class="card-link" href="#">Cars</a></li>
-                    <li><a class="card-link" href="#">Furniture</a></li>
-                    <li><a class="card-link" href="#">Repair</a></li>
+                    <li><a class="card-link" href="#">@category.Name</a></li>
                 }
             </ul>
         </div>
@@ -46,7 +32,7 @@
                         <div class="img-cover">
                             <a class="card-link text-wrap" href="#"><img src="@Html.Raw(SetImagePath(item))" alt="@item.Name" /></a>
                         </div>
-                        <div class="d-flex justify-content-between flex-column p-0 pl-3">
+                        <div class="d-flex justify-content-between flex-column p-0 pl-3 w-100">
                             <h5><a class="card-link text-wrap" href="#">@item.Name</a></h5>
                             <div class="mb-1 limited-text line-clamp-1">
                                 <a class="card-link" href="#">Some category</a>@(item.TradeEnabled ? ", exchange is possible" : "")</div>

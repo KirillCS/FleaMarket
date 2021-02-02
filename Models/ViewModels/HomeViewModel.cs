@@ -7,11 +7,14 @@ namespace FleaMarket.ViewModels
     {
         public IEnumerable<Item> Items { get; set; }
 
+        public IEnumerable<Category> Categories { get; set; }
+
         public HomeViewModel() { }
 
-        public HomeViewModel(IEnumerable<Item> items)
+        public HomeViewModel(IEnumerable<Item> items, IEnumerable<Category> categories)
         {
             this.Items = items;
+            this.Categories = categories;
         }
     }
 }
