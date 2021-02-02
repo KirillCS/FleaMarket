@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -38,6 +39,16 @@ namespace FleaMarket.Models
         [Required]
         public string UserId { get; set; }
 
+        public int? CoverId { get; set; }
+
+
+        public User User { get; set; }
+
+        public Image Cover { get; set; }
+
+        public List<Image> Images { get; set; }
+
+
         [NotMapped]
         public PriceType PriceType =>
             Price switch
@@ -47,6 +58,7 @@ namespace FleaMarket.Models
                 _ => PriceType.Definite
             };
 
-        public User User { get; set; }
+        [NotMapped]
+        public bool HasCover => CoverId != null;
     }
 }
