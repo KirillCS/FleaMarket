@@ -1,0 +1,38 @@
+﻿@model SignUpViewModel
+@{
+    ViewData["Title"] = "Sign up";
+}
+
+<div class="row mt-5">
+    <div class="col-xl-5 col-lg-6 col-md-7 col-sm-8 mx-auto">
+        <div class="jumbotron py-5">
+            <h3 class="text-center">Sign up</h3>
+            <form asp-controller="account" asp-action="signup" method="post">
+                <div class="form-group">
+                    <label asp-for="Name"></label>
+                    <input class="form-control" asp-for="Name" autocomplete="off">
+                    <span class="d-inline invalid-feedback" asp-validation-for="Name"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Password"></label>
+                    <input class="form-control" asp-for="Password">
+                    <span class="d-inline invalid-feedback" asp-validation-for="Password"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="ConfirmPassword"></label>
+                    <input class="form-control" asp-for="ConfirmPassword">
+                    <span class="d-inline invalid-feedback" asp-validation-for="ConfirmPassword"></span>
+                </div>
+                <div class="d-inline invalid-feedback error-list" asp-validation-summary="ModelOnly"></div>
+                <input class="btn btn-primary btn-block mt-4" type="submit" value="Sign up" />
+            </form>
+            <div class="d-block text-center mt-2">
+                <a class="card-link small" asp-controller="account" asp-action="login">Already have an account? Login...</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
