@@ -17,7 +17,7 @@ namespace FleaMarket.Controllers
 
         public IActionResult Index()
         {
-            var model = new HomeViewModel(this.context.Items.Include(i => i.Cover), this.context.Categories);
+            var model = new HomeViewModel(this.context.Items.Include(i => i.Cover).Include(i => i.Categories), this.context.Categories);
             return View(model);
         }
 
