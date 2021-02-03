@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using FleaMarket.ViewModels;
 using FleaMarket.Data;
 using Microsoft.EntityFrameworkCore;
+using System.Linq;
 
 namespace FleaMarket.Controllers
 {
@@ -17,7 +18,13 @@ namespace FleaMarket.Controllers
 
         public IActionResult Index()
         {
-            var model = new HomeViewModel(this.context.Items.Include(i => i.Cover).Include(i => i.Categories), this.context.Categories);
+            var model = new HomeViewModel
+            {
+                Items = this.context.Items.Include(i => i.Categories).ToArray(),
+                Covers = this.context.Images.Where(i => i.IsCover).ToArray(),
+                Categories = this.context.Categories.ToArray()
+            };
+
             return View(model);
         }
 

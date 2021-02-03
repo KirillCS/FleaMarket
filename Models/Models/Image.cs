@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace FleaMarket.Models
 {
@@ -10,6 +11,10 @@ namespace FleaMarket.Models
 
         [Required]
         public string Path { get; set; }
+
+        [Required]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public bool IsCover { get; set; }
 
         [Required]
         public int ItemId { get; set; }

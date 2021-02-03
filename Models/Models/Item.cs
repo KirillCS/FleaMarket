@@ -33,12 +33,8 @@ namespace FleaMarket.Models
         [Required]
         public string UserId { get; set; }
 
-        public int? CoverId { get; set; }
-
 
         public User User { get; set; }
-
-        public Image Cover { get; set; }
 
         public List<Image> Images { get; set; }
 
@@ -53,8 +49,5 @@ namespace FleaMarket.Models
                 null => PriceType.Contract,
                 _ => PriceType.Definite
             };
-
-        [NotMapped]
-        public bool HasCover => CoverId != null;
     }
 }

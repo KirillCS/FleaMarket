@@ -25,14 +25,9 @@ namespace FleaMarket.Data
                    .Property(i => i.PublishingDate)
                    .HasDefaultValueSql("getutcdate()");
 
-            builder.Entity<Item>()
-                   .HasMany(i => i.Images)
-                   .WithOne(i => i.Item)
-                   .HasForeignKey(i => i.ItemId);
-            builder.Entity<Item>()
-                   .HasOne(i => i.Cover)
-                   .WithOne()
-                   .HasForeignKey<Item>(i => i.CoverId);
+            builder.Entity<Image>()
+                   .Property(i => i.IsCover)
+                   .HasDefaultValue(false);
         }
     }
 }
