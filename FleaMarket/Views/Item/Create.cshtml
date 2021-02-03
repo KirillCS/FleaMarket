@@ -1,0 +1,46 @@
+﻿@inject IOptions<ApplicationConfigurations> Configurations
+@model AddingItemViewModel
+@{
+    ViewData["Title"] = "Creating new item";
+}
+
+<h3>Creating new item</h3>
+<form asp-controller="item" asp-action="add" method="post">
+    <div class="col-xl-6 col-lg-7 col-md-8 p-0">
+        <div class="form-group">
+            <label asp-for="Name"></label>
+            <input class="form-control" asp-for="Name" autocomplete="off">
+            <span class="d-inline invalid-feedback" asp-validation-for="Name"></span>
+        </div>
+        @*categories here...*@
+        <div class="form-group">
+            <label asp-for="Description"></label>
+            <textarea class="form-control" asp-for="Description" autocomplete="off" rows="6"></textarea>
+            <span class="d-inline invalid-feedback" asp-validation-for="Description"></span>
+        </div>
+    </div>
+    <hr class="my-4" />
+    <div class="col-xl-6 col-lg-7 col-md-8 p-0">
+        @*images here...*@
+    </div>
+    <hr class="my-4" />
+    <div class="col-xl-6 col-lg-7 col-md-8 p-0">
+        <div class="form-group">
+            <label asp-for="Price"></label> (@Configurations.Value.CurrencySymbol)
+            <input class="form-control" asp-for="Price" type="number" step="0.01" min="0" autocomplete="off">
+            <span class="d-inline invalid-feedback" asp-validation-for="Price"></span>
+        </div>
+        <div class="form-group form-check">
+            <input class="form-check-input" asp-for="TradeEnabled">
+            <label class="form-check-label" asp-for="TradeEnabled"></label>
+        </div>
+    </div>
+    <hr class="my-4" />
+    <div class="col-xl-6 col-lg-7 col-md-8 p-0">
+        <input class="btn btn-primary btn-block" type="submit" value="Create" />
+    </div>
+</form>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
