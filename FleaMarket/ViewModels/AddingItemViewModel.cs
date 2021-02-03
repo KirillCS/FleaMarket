@@ -21,14 +21,14 @@ namespace FleaMarket.ViewModels
         [MaxLength(4096)]
         public string Description { get; set; }
 
-        public IEnumerable<IFormFile> Files { get; set; }
+        [Display(Name = "Photos", Prompt = "Choose photos of your item...")]
+        public IEnumerable<IFormFile> Images { get; set; }
 
         public int? CoverNumber { get; set; }
 
         [DataType(DataType.Currency)]
         [Display(Name = "Price", Prompt = "For example: 299.99")]
-        [DisplayFormat(ApplyFormatInEditMode = true)]
-        public decimal? Price { get; set; }
+        public string Price { get; set; }
 
         [Display(Name = "Exchange is possible")]
         public bool TradeEnabled { get; set; }

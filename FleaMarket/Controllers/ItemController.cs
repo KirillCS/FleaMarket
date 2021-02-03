@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using FleaMarket.ViewModels;
@@ -20,6 +21,7 @@ namespace FleaMarket.Controllers
         [HttpPost]
         public IActionResult Add(AddingItemViewModel model)
         {
+            Debug.WriteLine(ModelState.IsValid);
             return Redirect("/");
         }
     }

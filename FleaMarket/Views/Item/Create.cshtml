@@ -4,8 +4,10 @@
     ViewData["Title"] = "Creating new item";
 }
 
+<link href="~/lib/drag-n-drop/drag-n-drop.css" rel="stylesheet" />
+
 <h3>Creating new item</h3>
-<form asp-controller="item" asp-action="add" method="post">
+<form asp-controller="item" asp-action="add" enctype="multipart/form-data" method="post">
     <div class="col-xl-6 col-lg-7 col-md-8 p-0">
         <div class="form-group">
             <label asp-for="Name"></label>
@@ -21,7 +23,13 @@
     </div>
     <hr class="my-4" />
     <div class="col-xl-6 col-lg-7 col-md-8 p-0">
-        @*images here...*@
+        <div class="drop-zone">
+            <div class="drop-zone__selector">
+                <input class="drop-zone__selector__input" type="file" accept="image/*" multiple />
+                <span class="drop-zone__selector__prompt">Drag here or choose images...</span>
+            </div>
+            <ul class="images-list" data-imgs-name="@nameof(Model.Images)"></ul>
+        </div>
     </div>
     <hr class="my-4" />
     <div class="col-xl-6 col-lg-7 col-md-8 p-0">
@@ -43,4 +51,5 @@
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script src="~/lib/drag-n-drop/drag-n-drop.js"></script>
 }
