@@ -14,5 +14,10 @@
         /// The name of the placeholder image
         /// </summary>
         public string ImagePlaceholderPath { get; set; }
+
+        /// <summary>
+        /// The symbol of the using currency in project
+        /// </summary>
+        public string CurrencySymbol { get; set; }
     }
 }
