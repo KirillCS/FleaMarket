@@ -24,7 +24,7 @@ namespace FleaMarket.ViewModels
         [Display(Name = "Photos", Prompt = "Choose photos of your item...")]
         public IEnumerable<IFormFile> Images { get; set; }
 
-        public int? CoverNumber { get; set; }
+        public IFormFile Cover { get; set; }
 
         [DataType(DataType.Currency)]
         [Display(Name = "Price", Prompt = "For example: 299.99")]

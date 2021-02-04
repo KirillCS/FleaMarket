@@ -1,71 +1,98 @@
-﻿document.querySelectorAll(".drop-zone__selector__input").forEach(input => {
-    const selector = input.closest(".drop-zone__selector");
-    const imagesList = selector.closest(".drop-zone").getElementsByClassName("images-list")[0];
+﻿document.querySelectorAll('.dropzone-item').forEach(dropzone => setDropzoneItem(dropzone));
 
-    input.addEventListener("change", e => {
+function setDropzoneItem(dropzone) {
+    const input = dropzone.querySelector('.dropzone-item__input');
+    input.name = dropzone.closest('.dropzone-list').dataset.imgsName;
+
+    input.addEventListener('change', e => {
         if (e.target.files.length) {
-            addImagesToList(imagesList, e.target.files);
+            setImage(dropzone, e.target.files[0], !dropzone.querySelector(".dropzone-item__thumb"));
         }
     });
 
-    selector.addEventListener("click", () => {
-        input.click();
-    });
+    dropzone.querySelector('.dropzone-item__remove').addEventListener('click', e => {
+        removeDropzone(dropzone);
+        e.stopPropagation();
+    })
 
-    selector.addEventListener("drop", e => {
+    dropzone.addEventListener('click', () => input.click());
+
+    dropzone.addEventListener('drop', e => {
         e.preventDefault();
 
         if (e.dataTransfer.files.length) {
             input.files = e.dataTransfer.files;
-            addImagesToList(imagesList, input.files);
+            setImage(dropzone, input.files[0], !dropzone.querySelector(".dropzone-item__thumb"));
         }
 
-        selector.classList.remove("drop-zone--over");
+        dropzone.classList.remove('dropzone-item--over');
     });
 
-    selector.addEventListener("dragover", e => {
+    dropzone.addEventListener('dragover', e => {
         e.preventDefault();
-        selector.classList.add("drop-zone--over");
+        dropzone.classList.add('dropzone--over');
     });
 
-    ["dragleave", "dragend"].forEach(type => {
-        selector.addEventListener(type, e => {
-            selector.classList.remove("drop-zone--over");
+    ['dragleave', 'dragend'].forEach(ev => {
+        dropzone.addEventListener(ev, e => {
+            dropzone.classList.remove('dropzone--over');
         });
     });
-});
+}
 
-function addImagesToList(imagesList, images) {
-    if (!imagesList || !images) {
+function setImage(dropzone, image, addNewDropzone) {
+    if (!isImage(image)) {
         return;
     }
 
-    let imgsName = imagesList.dataset.imgsName;
-
-    for (let i = 0; i < images.length; i++) {
-        const image = images[i];
-        if (!isImage(image)) {
-            continue;
-        }
-
-        const reader = new FileReader();
-        reader.readAsDataURL(image);
-        reader.onload = () => {
-            imagesList.innerHTML += 
-            `<li class="images-list__item">
-                <img class="images-list__item__image" name="${imgsName}" src="${reader.result}" alt="">
-                <span class="images-list__item__remove" onclick="removeImage(this)"></span>
-            </li>`
-        }
+    let promptElement = dropzone.querySelector(".dropzone-item__prompt");
+    if (promptElement != null) {
+        promptElement.remove();
     }
+
+    let thumbnailElement = dropzone.querySelector(".dropzone-item__thumb");
+    if (!thumbnailElement) {
+        thumbnailElement = document.createElement("div");
+        thumbnailElement.classList.add("dropzone-item__thumb");
+        dropzone.appendChild(thumbnailElement);
+    }
+
+    const reader = new FileReader();
+    reader.readAsDataURL(image);
+    reader.onload = () => {
+        thumbnailElement.style.backgroundImage = `url('${reader.result}')`;
+        if (addNewDropzone) {
+            addDropzone(dropzone.closest('.dropzone-list'));
+        }
+    };
+
+    dropzone.classList.add("dropzone-item--filled");
 }
 
 function isImage(file) {
     return file.type.startsWith("image/");
 }
 
-function removeImage(removeButton) {
-    let li = removeButton.closest("li");
-    let ul = li.closest("ul");
-    ul.removeChild(li);
+function addDropzone(dropzoneList) {
+    let dropzone = document.createElement('li');
+    dropzone.classList.add('dropzone-item');
+    let input = document.createElement('input');
+    input.classList.add('dropzone-item__input');
+    input.type = 'file';
+    input.accept = 'image/*';
+    let remove = document.createElement('span');
+    remove.classList.add('dropzone-item__remove');
+    let prompt = document.createElement('span');
+    prompt.classList.add('dropzone-item__prompt');
+
+    dropzone.appendChild(input);
+    dropzone.appendChild(remove);
+    dropzone.appendChild(prompt);
+    dropzoneList.appendChild(dropzone);
+
+    setDropzoneItem(dropzone);
+}
+
+function removeDropzone(dropzone) {
+    dropzone.closest('ul').removeChild(dropzone);
 }

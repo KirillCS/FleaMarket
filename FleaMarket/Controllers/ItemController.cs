@@ -18,7 +18,7 @@ namespace FleaMarket.Controllers
             return View();
         }
 
-        [HttpPost]
+        [HttpPost]  
         public IActionResult Add(AddingItemViewModel model)
         {
             Debug.WriteLine(ModelState.IsValid);

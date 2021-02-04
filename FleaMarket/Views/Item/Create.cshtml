@@ -23,13 +23,14 @@
     </div>
     <hr class="my-4" />
     <div class="col-xl-6 col-lg-7 col-md-8 p-0">
-        <div class="drop-zone">
-            <div class="drop-zone__selector">
-                <input class="drop-zone__selector__input" type="file" accept="image/*" multiple />
-                <span class="drop-zone__selector__prompt">Drag here or choose images...</span>
-            </div>
-            <ul class="images-list" data-imgs-name="@nameof(Model.Images)"></ul>
-        </div>
+        <label asp-for="Images"></label>
+        <ul class="dropzone-list" data-imgs-name="@nameof(Model.Images)">
+            <li class="dropzone-item">
+                <input class="dropzone-item__input" type="file" accept="image/*" />
+                <span class="dropzone-item__remove"></span>
+                <span class="dropzone-item__prompt"></span>
+            </li>
+        </ul>
     </div>
     <hr class="my-4" />
     <div class="col-xl-6 col-lg-7 col-md-8 p-0">
