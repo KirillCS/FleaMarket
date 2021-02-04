@@ -1,10 +1,7 @@
 ﻿using FleaMarket.Models;
 using Microsoft.AspNetCore.Http;
-using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace FleaMarket.ViewModels
 {
@@ -21,9 +18,10 @@ namespace FleaMarket.ViewModels
         [MaxLength(4096)]
         public string Description { get; set; }
 
-        [Display(Name = "Photos", Prompt = "Choose photos of your item...")]
+        [Display(Name = "Photos")]
         public IEnumerable<IFormFile> Images { get; set; }
 
+        [Display(Name = "Cover")]
         public IFormFile Cover { get; set; }
 
         [DataType(DataType.Currency)]

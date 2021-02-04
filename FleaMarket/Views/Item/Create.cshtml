@@ -4,7 +4,8 @@
     ViewData["Title"] = "Creating new item";
 }
 
-<link href="~/lib/drag-n-drop/drag-n-drop.css" rel="stylesheet" />
+<link href="~/lib/dropzone/dropzone.css" rel="stylesheet" />
+<link href="~/lib/dropzone-list/dropzone-list.css" rel="stylesheet" />
 
 <h3>Creating new item</h3>
 <form asp-controller="item" asp-action="add" enctype="multipart/form-data" method="post">
@@ -23,14 +24,24 @@
     </div>
     <hr class="my-4" />
     <div class="col-xl-6 col-lg-7 col-md-8 p-0">
-        <label asp-for="Images"></label>
-        <ul class="dropzone-list" data-imgs-name="@nameof(Model.Images)">
-            <li class="dropzone-item">
-                <input class="dropzone-item__input" type="file" accept="image/*" />
-                <span class="dropzone-item__remove"></span>
-                <span class="dropzone-item__prompt"></span>
-            </li>
-        </ul>
+        <div class="form-group">
+            <label asp-for="Cover"></label>
+            <div class="dropzone">
+                <input class="dropzone__input" name="@nameof(Model.Cover)" type="file" accept="image/*" />
+                <span class="dropzone__remove"></span>
+                <span class="dropzone__prompt" data-prompt="Choose an image or drag it here...">Choose an image or drag it here...</span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="Images"></label>
+            <ul class="dropzone-list" data-imgs-name="@nameof(Model.Images)">
+                <li class="dropzone-item">
+                    <input class="dropzone-item__input" type="file" accept="image/*" />
+                    <span class="dropzone-item__remove"></span>
+                    <span class="dropzone-item__prompt"></span>
+                </li>
+            </ul>
+        </div>
     </div>
     <hr class="my-4" />
     <div class="col-xl-6 col-lg-7 col-md-8 p-0">
@@ -52,5 +63,6 @@
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-    <script src="~/lib/drag-n-drop/drag-n-drop.js"></script>
+    <script src="~/lib/dropzone/dropzone.js"></script>
+    <script src="~/lib/dropzone-list/dropzone-list.js"></script>
 }
