@@ -13,6 +13,7 @@
 
         dropzone.querySelector('.dropzone__remove').addEventListener('click', e => {
             resetImage(dropzone, prompt);
+            input.value = '';
             e.stopPropagation();
         })
 

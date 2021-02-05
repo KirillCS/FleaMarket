@@ -18,12 +18,12 @@ namespace FleaMarket.ViewModels
 
         [MaxLength(4096)]
         public string Description { get; set; }
+        
+        [Display(Name = "Cover")]
+        public IFormFile Cover { get; set; }
 
         [Display(Name = "Photos")]
         public IEnumerable<IFormFile> Images { get; set; }
-
-        [Display(Name = "Cover")]
-        public IFormFile Cover { get; set; }
 
         [DataType(DataType.Currency)]
         [Display(Name = "Price", Prompt = "For example: 299.99")]
@@ -36,7 +36,9 @@ namespace FleaMarket.ViewModels
 
         public AddingItemViewModel()
         {
-            DisplayingCategories = new List<Category>();
+            this.CategoriesIds = new List<int>();
+            this.Images = new List<IFormFile>();
+            this.DisplayingCategories = new List<Category>();
         }
     }
 }

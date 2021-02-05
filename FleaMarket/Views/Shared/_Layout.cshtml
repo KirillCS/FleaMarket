@@ -25,11 +25,12 @@
                                     <button class="btn btn-outline-secondary btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         @User.Identity.Name
                                     </button>
-                                    <div class="dropdown-menu">
-                                        <a class="dropdown-item" href="#">My items</a>
-                                        <a class="dropdown-item" asp-controller="item" asp-action="create">Create new item</a>
-                                        <a class="dropdown-item" asp-controller="account" asp-action="logout">Log out</a>
-                                    </div>
+                                    <ul class="dropdown-menu">
+                                        <li><a class="dropdown-item" href="#">My items</a></li>
+                                        <li><a class="dropdown-item" asp-controller="item" asp-action="create">Create new item</a></li>
+                                        <li><hr class="dropdown-divider"></li>
+                                        <li><a class="dropdown-item" asp-controller="account" asp-action="logout">Log out</a></li>
+                                    </ul>
                                 </div>
                             </li>
                         }

@@ -7,7 +7,7 @@
 @functions 
 {
     public string SetImagePath(string path = null) =>
-        Configuration.Value.ImagesPath + (!string.IsNullOrEmpty(path) ? path : Configuration.Value.ImagePlaceholderPath);
+        Configuration.Value.ImagesFolder + (!string.IsNullOrEmpty(path) ? path : Configuration.Value.ImagePlaceholderPath);
 }
 
 <div class="row">

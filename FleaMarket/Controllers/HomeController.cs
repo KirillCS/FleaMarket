@@ -20,7 +20,7 @@ namespace FleaMarket.Controllers
         {
             var model = new HomeViewModel
             {
-                Items = this.context.Items.Include(i => i.Categories).ToArray(),
+                Items = this.context.Items.Include(i => i.Categories).OrderByDescending(i => i.PublishingDate).ToArray(),
                 Covers = this.context.Images.Where(i => i.IsCover).ToArray(),
                 Categories = this.context.Categories.ToArray()
             };

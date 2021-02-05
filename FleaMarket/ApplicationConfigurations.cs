@@ -8,7 +8,7 @@
         /// <summary>
         /// The path to the folder with images
         /// </summary>
-        public string ImagesPath { get; set; }
+        public string ImagesFolder { get; set; }
 
         /// <summary>
         /// The name of the placeholder image
