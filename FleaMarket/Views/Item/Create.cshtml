@@ -15,20 +15,24 @@
             <input class="form-control" asp-for="Name" autocomplete="off">
             <span class="d-inline invalid-feedback" asp-validation-for="Name"></span>
         </div>
-        <div class="form-group">
-            <label asp-for="CategoriesIds"></label>
-            @foreach (var category in Model.DisplayingCategories)
-            {
-                string id = category.Name + category.Id;
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" id="@id" name="@nameof(Model.CategoriesIds)" value="@category.Id">
-                    <label class="form-check-label" for="@id">
-                        @category.Name
-                    </label>
-                </div>
-            }
-            <span class="d-inline invalid-feedback" asp-validation-for="CategoriesIds"></span>
-        </div>
+        @if (!Model.DisplayingCategories.IsNullOrEmpty())
+        {
+            <div class="form-group">
+                <label asp-for="CategoriesIds"></label>
+                @foreach (var category in Model.DisplayingCategories)
+                {
+                    string id = category.Name + category.Id;
+                    bool isSelected = Model.CategoriesIds != null && Model.CategoriesIds.Any(i => i == category.Id);
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="@id" name="@nameof(Model.CategoriesIds)" value="@category.Id" @(isSelected ? "checked" : string.Empty)>
+                        <label class="form-check-label" for="@id">
+                            @category.Name
+                        </label>
+                    </div>
+                }
+                <span class="d-inline invalid-feedback" asp-validation-for="CategoriesIds"></span>
+            </div>
+        }
         <div class="form-group">
             <label asp-for="Description"></label>
             <textarea class="form-control" asp-for="Description" autocomplete="off" rows="6"></textarea>

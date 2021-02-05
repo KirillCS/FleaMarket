@@ -1,3 +1,4 @@
+using AutoMapper;
 using FleaMarket.Data;
 using FleaMarket.Models;
 using Microsoft.AspNetCore.Builder;
@@ -31,6 +32,8 @@ namespace FleaMarket
                     .AddEntityFrameworkStores<DatabaseContext>();
 
             services.Configure<ApplicationConfigurations>(this.Configuration.GetSection("ApplicationConfigurations"));
+
+            services.AddAutoMapper(typeof(Startup));
 
             services.AddControllersWithViews();
         }

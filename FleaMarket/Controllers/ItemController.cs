@@ -1,4 +1,5 @@
-﻿using FleaMarket.Data;
+﻿using AutoMapper;
+using FleaMarket.Data;
 using FleaMarket.Models;
 using FleaMarket.ViewModels;
 using Microsoft.AspNetCore.Authorization;
@@ -7,8 +8,6 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using System;
-using System.Collections.Generic;
-using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Security.Claims;
@@ -22,14 +21,17 @@ namespace FleaMarket.Controllers
         private readonly DatabaseContext context;
         private readonly IWebHostEnvironment environment;
         private readonly IOptions<ApplicationConfigurations> configuration;
+        private readonly IMapper mapper;
 
         public ItemController(DatabaseContext context,
                               IWebHostEnvironment environment,
-                              IOptions<ApplicationConfigurations> configuration)
+                              IOptions<ApplicationConfigurations> configuration,
+                              IMapper mapper)
         {
             this.context = context;
             this.environment = environment;
             this.configuration = configuration;
+            this.mapper = mapper;
         }
 
         [HttpGet]
@@ -37,7 +39,7 @@ namespace FleaMarket.Controllers
         {
             var model = new AddingItemViewModel
             {
-                DisplayingCategories = this.context.Categories
+                DisplayingCategories = this.context.Categories.ToList()
             };
 
             return View(model);
@@ -48,21 +50,13 @@ namespace FleaMarket.Controllers
         {
             if (!ModelState.IsValid)
             {
+                model.DisplayingCategories = this.context.Categories.ToList();
                 return View("Create", model);
             }
 
-            decimal? price = model.Price is null ? null : (decimal?)decimal.Parse(model.Price, new CultureInfo("en-US"));
-            var item = new Item
-            {
-                Name = model.Name,
-                Categories = new List<Category>(),
-                Description = model.Description,
-                Images = new List<Image>(),
-                Price = price,
-                TradeEnabled = model.TradeEnabled,
-                UserId = User.FindFirstValue(ClaimTypes.NameIdentifier)
-            };
-
+            var item = mapper.Map<Item>(model);
+            item.UserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            
             if (model.Cover != null)
             {
                 var fileName = await this.SaveFile(model.Cover);
@@ -100,7 +94,7 @@ namespace FleaMarket.Controllers
             string uniqueFileName = $"{Guid.NewGuid()}_{file.FileName}";
             string filePath = Path.Combine(this.environment.WebRootPath, this.configuration.Value.ImagesFolder, uniqueFileName);
             await file.CopyToAsync(new FileStream(filePath, FileMode.Create));
-
+            
             return uniqueFileName;
         }
     }
