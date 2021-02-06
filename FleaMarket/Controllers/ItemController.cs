@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
 using FleaMarket.Data;
+using FleaMarket.Extensions;
 using FleaMarket.Models;
+using FleaMarket.Services;
 using FleaMarket.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
@@ -8,6 +10,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Security.Claims;
@@ -22,16 +25,19 @@ namespace FleaMarket.Controllers
         private readonly IWebHostEnvironment environment;
         private readonly IOptions<ApplicationConfigurations> configuration;
         private readonly IMapper mapper;
+        private readonly IFormFileSaver fileSaver;
 
         public ItemController(DatabaseContext context,
                               IWebHostEnvironment environment,
                               IOptions<ApplicationConfigurations> configuration,
-                              IMapper mapper)
+                              IMapper mapper,
+                              IFormFileSaver fileSaver)
         {
             this.context = context;
             this.environment = environment;
             this.configuration = configuration;
             this.mapper = mapper;
+            this.fileSaver = fileSaver;
         }
 
         [HttpGet]
@@ -56,23 +62,7 @@ namespace FleaMarket.Controllers
 
             var item = mapper.Map<Item>(model);
             item.UserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            
-            if (model.Cover != null)
-            {
-                var fileName = await this.SaveFile(model.Cover);
-                item.Images.Add(new Image(fileName, true));
-            }
-
-            foreach (var image in model.Images)
-            {
-                if (image is null)
-                {
-                    continue;
-                }
-
-                var fileName = await this.SaveFile(image);
-                item.Images.Add(new Image(fileName));
-            }
+            item.Images = await this.SaveModelImages(model);
 
             foreach (int id in model.CategoriesIds)
             {
@@ -89,13 +79,23 @@ namespace FleaMarket.Controllers
             return Redirect("/");
         }
 
-        private async Task<string> SaveFile(IFormFile file)
+        private async Task<List<Image>> SaveModelImages(AddingItemViewModel model)
         {
-            string uniqueFileName = $"{Guid.NewGuid()}_{file.FileName}";
-            string filePath = Path.Combine(this.environment.WebRootPath, this.configuration.Value.ImagesFolder, uniqueFileName);
-            await file.CopyToAsync(new FileStream(filePath, FileMode.Create));
-            
-            return uniqueFileName;
+            var images = new List<Image>();
+            var path = Path.Combine(this.environment.WebRootPath, this.configuration.Value.ImagesFolder);
+            if (model.Cover != null)
+            {
+                var fileName = await this.fileSaver.SaveFileAsync(model.Cover, path);
+                images.Add(new Image(fileName, true));
+            }
+
+            if (!model.Images.IsNullOrEmpty())
+            {
+                var imagesNames = await this.fileSaver.SaveFilesAsync(model.Images, path);
+                images.AddRange(imagesNames.Select(n => new Image(n)));
+            }
+
+            return images;
         }
     }
 }

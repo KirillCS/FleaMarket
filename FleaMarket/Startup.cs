@@ -1,6 +1,7 @@
 using AutoMapper;
 using FleaMarket.Data;
 using FleaMarket.Models;
+using FleaMarket.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
@@ -34,6 +35,10 @@ namespace FleaMarket
             services.Configure<ApplicationConfigurations>(this.Configuration.GetSection("ApplicationConfigurations"));
 
             services.AddAutoMapper(typeof(Startup));
+
+            services.AddTransient<IFileNameGenerator, GuidFileNameGenerator>();
+
+            services.AddTransient<IFormFileSaver, FormFileSaver>();
 
             services.AddControllersWithViews();
         }
