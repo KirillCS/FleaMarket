@@ -11,7 +11,7 @@ namespace FleaMarket
 
         Category GetCategoryById(int id);
 
-        Category GetCategoryByCollectionId(IEnumerable<int> ids);
+        IEnumerable<Category> GetCategoriesByCollectionId(IEnumerable<int> ids);
 
         IEnumerable<Category> GetAllCategories();
     }
