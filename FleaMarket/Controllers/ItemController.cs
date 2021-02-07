@@ -1,15 +1,12 @@
 ﻿using AutoMapper;
-using FleaMarket.Data;
 using FleaMarket.Extensions;
 using FleaMarket.Models;
 using FleaMarket.Services;
 using FleaMarket.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
-using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -21,19 +18,19 @@ namespace FleaMarket.Controllers
     [Authorize]
     public class ItemController : Controller
     {
-        private readonly DatabaseContext context;
+        private readonly IUnitOfWork unitOfWork;
         private readonly IWebHostEnvironment environment;
         private readonly IOptions<ApplicationConfigurations> configuration;
         private readonly IMapper mapper;
         private readonly IFormFileSaver fileSaver;
 
-        public ItemController(DatabaseContext context,
+        public ItemController(IUnitOfWork unitOfWork,
                               IWebHostEnvironment environment,
                               IOptions<ApplicationConfigurations> configuration,
                               IMapper mapper,
                               IFormFileSaver fileSaver)
         {
-            this.context = context;
+            this.unitOfWork = unitOfWork;
             this.environment = environment;
             this.configuration = configuration;
             this.mapper = mapper;
@@ -45,7 +42,7 @@ namespace FleaMarket.Controllers
         {
             var model = new AddingItemViewModel
             {
-                DisplayingCategories = this.context.Categories.ToList()
+                DisplayingCategories = this.unitOfWork.ItemRepository.GetAllCategories()
             };
 
             return View(model);
@@ -56,25 +53,17 @@ namespace FleaMarket.Controllers
         {
             if (!ModelState.IsValid)
             {
-                model.DisplayingCategories = this.context.Categories.ToList();
+                model.DisplayingCategories = this.unitOfWork.ItemRepository.GetAllCategories();
                 return View("Create", model);
             }
 
             var item = mapper.Map<Item>(model);
             item.UserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             item.Images = await this.SaveModelImages(model);
+            item.Categories = this.unitOfWork.ItemRepository.GetCategoriesByCollectionId(model.CategoriesIds).ToList();
 
-            foreach (int id in model.CategoriesIds)
-            {
-                var category = context.Categories.FirstOrDefault(c => c.Id == id);
-                if (category != null)
-                {
-                    item.Categories.Add(category);
-                }
-            }
-
-            context.Items.Add(item);
-            await context.SaveChangesAsync();
+            this.unitOfWork.ItemRepository.Add(item);
+            this.unitOfWork.Complete();
 
             return Redirect("/");
         }

@@ -32,6 +32,8 @@ namespace FleaMarket
             })
                     .AddEntityFrameworkStores<DatabaseContext>();
 
+            services.AddTransient<IUnitOfWork, UnitOfWork>();
+
             services.Configure<ApplicationConfigurations>(this.Configuration.GetSection("ApplicationConfigurations"));
 
             services.AddAutoMapper(typeof(Startup));

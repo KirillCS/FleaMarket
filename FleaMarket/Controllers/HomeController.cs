@@ -9,20 +9,20 @@ namespace FleaMarket.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly DatabaseContext context;
+        private readonly IUnitOfWork unitOfWork;
 
-        public HomeController(DatabaseContext context)
+        public HomeController(IUnitOfWork unitOfWork)
         {
-            this.context = context;
+            this.unitOfWork = unitOfWork;
         }
 
         public IActionResult Index()
         {
             var model = new HomeViewModel
             {
-                Items = this.context.Items.Include(i => i.Categories).OrderByDescending(i => i.PublishingDate).ToArray(),
-                Covers = this.context.Images.Where(i => i.IsCover).ToArray(),
-                Categories = this.context.Categories.ToArray()
+                Items = this.unitOfWork.ItemRepository.GetAllItemsWithCategories().OrderByDescending(i => i.PublishingDate),
+                Covers = this.unitOfWork.ItemRepository.GetAllCovers(),
+                Categories = this.unitOfWork.ItemRepository.GetAllCategories()
             };
 
             return View(model);

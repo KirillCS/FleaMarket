@@ -14,7 +14,7 @@ namespace FleaMarket.ViewModels
 
         [Required(ErrorMessage = "Select the category (-ies) of your item")]
         [Display(Name = "Categories")]
-        public List<int> CategoriesIds { get; set; }
+        public IEnumerable<int> CategoriesIds { get; set; }
 
         [MaxLength(4096)]
         public string Description { get; set; }
@@ -32,7 +32,7 @@ namespace FleaMarket.ViewModels
         [Display(Name = "Exchange is possible")]
         public bool TradeEnabled { get; set; }
 
-        public List<Category> DisplayingCategories { get; set; }
+        public IEnumerable<Category> DisplayingCategories { get; set; }
 
         public AddingItemViewModel()
         {
