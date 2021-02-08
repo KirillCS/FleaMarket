@@ -59,32 +59,13 @@ namespace FleaMarket.Controllers
 
             var item = mapper.Map<Item>(model);
             item.UserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            item.Images = await SaveModelImages(model);
+            item.Images = (await fileSaver.SaveFormImages(model.Cover, model.Images, Path.Combine(environment.WebRootPath, configuration.Value.ImagesFolder))).ToList();
             item.Categories = unitOfWork.ItemRepository.GetCategoriesByCollectionId(model.CategoriesIds).ToList();
 
             unitOfWork.ItemRepository.Add(item);
             unitOfWork.Complete();
 
             return Redirect("/");
-        }
-
-        private async Task<List<Image>> SaveModelImages(AddingItemViewModel model)
-        {
-            var images = new List<Image>();
-            var path = Path.Combine(environment.WebRootPath, configuration.Value.ImagesFolder);
-            if (model.Cover != null)
-            {
-                var fileName = await fileSaver.SaveFile(model.Cover, path);
-                images.Add(new Image(fileName, true));
-            }
-
-            if (!model.Images.IsNullOrEmpty())
-            {
-                var imagesNames = await fileSaver.SaveFiles(model.Images, path);
-                images.AddRange(imagesNames.Select(n => new Image(n)));
-            }
-
-            return images;
         }
     }
 }
