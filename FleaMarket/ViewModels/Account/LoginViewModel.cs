@@ -23,7 +23,7 @@ namespace FleaMarket.ViewModels
 
         public LoginViewModel(string returnUrl)
         {
-            this.ReturnUrl = returnUrl;
+            ReturnUrl = returnUrl;
         }
     }
 }

@@ -42,7 +42,7 @@ namespace FleaMarket.Controllers
         {
             var model = new AddingItemViewModel
             {
-                DisplayingCategories = this.unitOfWork.ItemRepository.GetAllCategories()
+                DisplayingCategories = unitOfWork.ItemRepository.GetAllCategories()
             };
 
             return View(model);
@@ -53,17 +53,17 @@ namespace FleaMarket.Controllers
         {
             if (!ModelState.IsValid)
             {
-                model.DisplayingCategories = this.unitOfWork.ItemRepository.GetAllCategories();
+                model.DisplayingCategories = unitOfWork.ItemRepository.GetAllCategories();
                 return View("Create", model);
             }
 
             var item = mapper.Map<Item>(model);
             item.UserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            item.Images = await this.SaveModelImages(model);
-            item.Categories = this.unitOfWork.ItemRepository.GetCategoriesByCollectionId(model.CategoriesIds).ToList();
+            item.Images = await SaveModelImages(model);
+            item.Categories = unitOfWork.ItemRepository.GetCategoriesByCollectionId(model.CategoriesIds).ToList();
 
-            this.unitOfWork.ItemRepository.Add(item);
-            this.unitOfWork.Complete();
+            unitOfWork.ItemRepository.Add(item);
+            unitOfWork.Complete();
 
             return Redirect("/");
         }
@@ -71,16 +71,16 @@ namespace FleaMarket.Controllers
         private async Task<List<Image>> SaveModelImages(AddingItemViewModel model)
         {
             var images = new List<Image>();
-            var path = Path.Combine(this.environment.WebRootPath, this.configuration.Value.ImagesFolder);
+            var path = Path.Combine(environment.WebRootPath, configuration.Value.ImagesFolder);
             if (model.Cover != null)
             {
-                var fileName = await this.fileSaver.SaveFileAsync(model.Cover, path);
+                var fileName = await fileSaver.SaveFile(model.Cover, path);
                 images.Add(new Image(fileName, true));
             }
 
             if (!model.Images.IsNullOrEmpty())
             {
-                var imagesNames = await this.fileSaver.SaveFilesAsync(model.Images, path);
+                var imagesNames = await fileSaver.SaveFiles(model.Images, path);
                 images.AddRange(imagesNames.Select(n => new Image(n)));
             }
 

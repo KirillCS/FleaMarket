@@ -26,7 +26,7 @@ namespace FleaMarket.Controllers
             if (ModelState.IsValid)
             {
                 var user = new User(model.Name);
-                var result = await this.userManager.CreateAsync(user, model.Password);
+                var result = await userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
                     await signInManager.SignInAsync(user, false);
@@ -51,7 +51,7 @@ namespace FleaMarket.Controllers
         {
             if (ModelState.IsValid)
             {
-                var result = await this.signInManager.PasswordSignInAsync(model.Name, model.Password, model.IsPersistent, false);
+                var result = await signInManager.PasswordSignInAsync(model.Name, model.Password, model.IsPersistent, false);
                 if (result.Succeeded)
                 {
                     if (!string.IsNullOrEmpty(model.ReturnUrl) && Url.IsLocalUrl(model.ReturnUrl))
@@ -71,7 +71,7 @@ namespace FleaMarket.Controllers
         [HttpGet]
         public async Task<IActionResult> Logout()
         {
-            await this.signInManager.SignOutAsync();
+            await signInManager.SignOutAsync();
             return Redirect("/");
         }
     }

@@ -10,5 +10,12 @@ namespace FleaMarket.ViewModels
         public IEnumerable<Image> Covers { get; set; }
 
         public IEnumerable<Category> Categories { get; set; }
+
+        public string SearchString { get; set; }
+
+        public HomeViewModel()
+        {
+            SearchString = string.Empty;
+        }
     }
 }

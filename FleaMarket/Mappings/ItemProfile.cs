@@ -21,7 +21,7 @@ namespace FleaMarket.Mappings
                 return null;
             }
 
-            return decimal.Parse(price, new CultureInfo("en-US"));
+            return decimal.Parse(price, CultureInfo.InvariantCulture);
         }
     }
 }

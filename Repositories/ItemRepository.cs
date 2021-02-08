@@ -10,6 +10,16 @@ namespace FleaMarket
     {
         public ItemRepository(DatabaseContext context) : base(context) { }
 
+        public IEnumerable<Item> GetItemsBySearchString(string searchString)
+        {
+            if (string.IsNullOrEmpty(searchString))
+            {
+                return this.GetAllItemsWithCategories();
+            }
+
+            return this.context.Items.Include(i => i.Categories).Where(i => i.Name.Contains(searchString) || i.Description.Contains(searchString)).ToList();
+        }
+
         public IEnumerable<Image> GetAllCovers()
         {
             return this.context.Images.Where(i => i.IsCover).ToList();

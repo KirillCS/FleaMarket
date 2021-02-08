@@ -5,6 +5,8 @@ namespace FleaMarket
 {
     public interface IItemRepository : IRepository<Item, int>
     {
+        IEnumerable<Item> GetItemsBySearchString(string searchString);
+
         IEnumerable<Item> GetAllItemsWithCategories();
 
         IEnumerable<Image> GetAllCovers();

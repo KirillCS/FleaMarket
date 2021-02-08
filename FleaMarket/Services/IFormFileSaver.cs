@@ -9,13 +9,6 @@ namespace FleaMarket.Services
     /// </summary>
     public interface IFormFileSaver
     {
-        /// <summary>
-        /// Save the form file
-        /// </summary>
-        /// <param name="file">The form file</param>
-        /// <param name="path">The file save path</param>
-        /// <returns>The name of the saving file</returns>
-        string SaveFile(IFormFile file, string path);
 
         /// <summary>
         /// Save the form file asynchronously
@@ -23,15 +16,7 @@ namespace FleaMarket.Services
         /// <param name="file">The form file</param>
         /// <param name="path">The file save path</param>
         /// <returns>The name of the saving file</returns>
-        Task<string> SaveFileAsync(IFormFile file, string path);
-
-        /// <summary>
-        /// Save the collection of form files
-        /// </summary>
-        /// <param name="files">The collection of form files</param>
-        /// <param name="path">The file save path</param>
-        /// <returns>Names of saving files</returns>
-        IEnumerable<string> SaveFiles(IEnumerable<IFormFile> files, string path);
+        Task<string> SaveFile(IFormFile file, string path);
 
         /// <summary>
         /// Save the collection of form files asynchronously
@@ -39,6 +24,6 @@ namespace FleaMarket.Services
         /// <param name="files">The collection of form files</param>
         /// <param name="path">The file save path</param>
         /// <returns>Names of saving files</returns>
-        Task<IEnumerable<string>> SaveFilesAsync(IEnumerable<IFormFile> files, string path);
+        Task<IEnumerable<string>> SaveFiles(IEnumerable<IFormFile> files, string path);
     }
 }

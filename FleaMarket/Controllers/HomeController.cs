@@ -1,8 +1,6 @@
 ﻿using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using FleaMarket.ViewModels;
-using FleaMarket.Data;
-using Microsoft.EntityFrameworkCore;
 using System.Linq;
 
 namespace FleaMarket.Controllers
@@ -16,13 +14,14 @@ namespace FleaMarket.Controllers
             this.unitOfWork = unitOfWork;
         }
 
-        public IActionResult Index()
+        public IActionResult Index(string searchString)
         {
             var model = new HomeViewModel
             {
-                Items = this.unitOfWork.ItemRepository.GetAllItemsWithCategories().OrderByDescending(i => i.PublishingDate),
-                Covers = this.unitOfWork.ItemRepository.GetAllCovers(),
-                Categories = this.unitOfWork.ItemRepository.GetAllCategories()
+                Items = unitOfWork.ItemRepository.GetItemsBySearchString(searchString).OrderByDescending(i => i.PublishingDate),
+                Covers = unitOfWork.ItemRepository.GetAllCovers(),
+                Categories = unitOfWork.ItemRepository.GetAllCategories(),
+                SearchString = searchString
             };
 
             return View(model);

@@ -36,9 +36,9 @@ namespace FleaMarket.ViewModels
 
         public AddingItemViewModel()
         {
-            this.Price = "0";
-            this.Images = new List<IFormFile>();
-            this.DisplayingCategories = new List<Category>();
+            Price = "0";
+            Images = new List<IFormFile>();
+            DisplayingCategories = new List<Category>();
         }
     }
 }

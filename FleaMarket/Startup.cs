@@ -38,8 +38,6 @@ namespace FleaMarket
 
             services.AddAutoMapper(typeof(Startup));
 
-            services.AddTransient<IFileNameGenerator, GuidFileNameGenerator>();
-
             services.AddTransient<IFormFileSaver, FormFileSaver>();
 
             services.AddControllersWithViews();
