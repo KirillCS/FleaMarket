@@ -5,7 +5,7 @@ namespace FleaMarket.Interfaces.Repositories
 {
     public interface IItemRepository : IRepository<Item, int>
     {
-        IEnumerable<Item> GetItemsBySearchString(string searchString);
+        IEnumerable<Item> SearchItems(string searchString);
 
         IEnumerable<Item> GetAllItemsWithCategories();
 

@@ -10,14 +10,17 @@ namespace FleaMarket.Domain.Repositories
     {
         public ItemRepository(DatabaseContext context) : base(context) { }
 
-        public IEnumerable<Item> GetItemsBySearchString(string searchString)
+        public IEnumerable<Item> SearchItems(string searchString)
         {
             if (string.IsNullOrEmpty(searchString))
             {
                 return GetAllItemsWithCategories();
             }
 
-            return context.Items.Include(i => i.Categories).Where(i => i.Name.Contains(searchString) || i.Description.Contains(searchString)).ToList();
+            return context.Items.Include(i => i.Categories)
+                                .Where(i => i.Name.Contains(searchString) || i.Description.Contains(searchString))
+                                .OrderByDescending(i => i.PublishingDate)
+                                .ToList();
         }
 
         public IEnumerable<Image> GetAllCovers()
@@ -27,7 +30,7 @@ namespace FleaMarket.Domain.Repositories
 
         public IEnumerable<Item> GetAllItemsWithCategories()
         {
-            return context.Items.Include(i => i.Categories).ToList();
+            return context.Items.Include(i => i.Categories).OrderByDescending(i => i.PublishingDate).ToList();
         }
 
         public Category GetCategoryById(int id)

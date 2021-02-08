@@ -15,14 +15,13 @@ namespace FleaMarket.Controllers
             this.unitOfWork = unitOfWork;
         }
 
-        public IActionResult Index(string searchString)
+        public IActionResult Index()
         {
             var model = new HomeViewModel
             {
-                Items = unitOfWork.ItemRepository.GetItemsBySearchString(searchString).OrderByDescending(i => i.PublishingDate),
+                Items = unitOfWork.ItemRepository.GetAllItemsWithCategories(),
                 Covers = unitOfWork.ItemRepository.GetAllCovers(),
-                Categories = unitOfWork.ItemRepository.GetAllCategories(),
-                SearchString = searchString
+                Categories = unitOfWork.ItemRepository.GetAllCategories()
             };
 
             return View(model);
