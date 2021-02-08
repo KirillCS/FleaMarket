@@ -65,7 +65,9 @@
                                         @:exchange is available
                                     }
                                 </div>
-                                <div class="text-black-50 mb-2 limited-text line-clamp-2 hidden-sm">@item.Description</div>
+                                <div class="text-black-50 mb-2 limited-text line-clamp-2 hidden-sm">
+                                    @(new HtmlString(item.Description.Replace("\r\n", "<br>")))
+                                </div>
                                 <div class="d-flex flex-row flex-wrap justify-content-between align-items-center">
                                     <h5>Price: @(item.PriceType == PriceType.Definite ? item.Price?.ToString() + Configuration.Value.CurrencySymbol : item.PriceType.ToString())</h5>
                                     <div class="small text-muted">@item.PublishingDate</div>
