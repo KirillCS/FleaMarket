@@ -339,6 +339,6 @@ ASALocalRun/
 # BeatPulse healthcheck temp database
 healthchecksdb
 
-FleaMarket/wwwroot/
+FleaMarket.Web/wwwroot/
 
-FleaMarket/wwwroot/!placeholder.png
+FleaMarket.Web/wwwroot/!placeholder.png

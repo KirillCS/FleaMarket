@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30204.135
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FleaMarket.Web", "FleaMarket\FleaMarket.Web.csproj", "{75524321-DBCE-4307-B930-F5BE1BA6920A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FleaMarket.Web", "FleaMarket.Web\FleaMarket.Web.csproj", "{75524321-DBCE-4307-B930-F5BE1BA6920A}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FleaMarket.Domain", "Data\FleaMarket.Domain.csproj", "{6C8F1393-CDBD-4933-9682-B3EF8011262C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FleaMarket.Domain", "FleaMarket.Domain\FleaMarket.Domain.csproj", "{6C8F1393-CDBD-4933-9682-B3EF8011262C}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FleaMarket.Interfaces", "FleaMarket.Interfaces\FleaMarket.Interfaces.csproj", "{206218D3-95CF-4E62-9235-8E000A445382}"
 EndProject
