@@ -26,14 +26,5 @@ namespace FleaMarket.Services
         /// <param name="path">The files save path</param>
         /// <returns>Names of saving files</returns>
         Task<IEnumerable<string>> SaveFiles(IEnumerable<IFormFile> files, string path);
-
-        /// <summary>
-        /// Save a cover and images of a item
-        /// </summary>
-        /// <param name="cover">The cover of the item</param>
-        /// <param name="images">The images of the item</param>
-        /// <param name="path">The files save path</param>
-        /// <returns>Collection of images</returns>
-        Task<IEnumerable<Image>> SaveFormImages(IFormFile cover, IEnumerable<IFormFile> images, string path);
     }
 }

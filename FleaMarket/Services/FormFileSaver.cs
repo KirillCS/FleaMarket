@@ -1,10 +1,7 @@
-﻿using FleaMarket.Extensions;
-using FleaMarket.Models;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace FleaMarket.Services
@@ -40,25 +37,6 @@ namespace FleaMarket.Services
             }
 
             return names;
-        }
-
-        /// <inheritdoc/>
-        public async Task<IEnumerable<Image>> SaveFormImages(IFormFile cover, IEnumerable<IFormFile> images, string path)
-        {
-            var result = new List<Image>();
-            if (cover != null)
-            {
-                var fileName = await SaveFile(cover, path);
-                result.Add(new Image(fileName, true));
-            }
-
-            if (images.IsNullOrEmpty())
-            {
-                var imagesNames = await SaveFiles(images, path);
-                result.AddRange(imagesNames.Select(n => new Image(n)));
-            }
-
-            return result;
         }
 
         private string GetUniqueFileName(string currentName) =>
