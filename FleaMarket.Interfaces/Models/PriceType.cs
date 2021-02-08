@@ -1,4 +1,4 @@
-﻿namespace FleaMarket.Enums
+﻿namespace FleaMarket.Models
 {
     public enum PriceType
     {

@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using FleaMarket.Helpers;
+using FleaMarket.Interfaces.Repositories;
 using FleaMarket.Models;
 using FleaMarket.ViewModels;
 using Microsoft.AspNetCore.Authorization;

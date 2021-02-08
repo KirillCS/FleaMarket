@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using FleaMarket.ViewModels;
 using System.Linq;
+using FleaMarket.Interfaces.Repositories;
 
 namespace FleaMarket.Controllers
 {

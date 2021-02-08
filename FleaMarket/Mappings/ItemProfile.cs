@@ -10,7 +10,7 @@ namespace FleaMarket.Mappings
         public ItemProfile()
         {
             CreateMap<AddingItemViewModel, Item>()
-                .ForMember(item => item.Price, opt => opt.MapFrom(vw => this.GetPriceFromString(vw.Price)))
+                .ForMember(item => item.Price, opt => opt.MapFrom(vw => GetPriceFromString(vw.Price)))
                 .ForMember(item => item.Images, opt => opt.Ignore());
         }
 

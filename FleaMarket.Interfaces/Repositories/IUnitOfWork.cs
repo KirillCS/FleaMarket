@@ -1,4 +1,4 @@
-﻿namespace FleaMarket
+﻿namespace FleaMarket.Interfaces.Repositories
 {
     public interface IUnitOfWork
     {

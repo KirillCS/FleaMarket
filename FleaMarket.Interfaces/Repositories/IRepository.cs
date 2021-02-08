@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq.Expressions;
 
-namespace FleaMarket
+namespace FleaMarket.Interfaces.Repositories
 {
     public interface IRepository<TEntity, TId> where TEntity : class
     {

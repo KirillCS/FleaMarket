@@ -1,10 +1,11 @@
 ﻿using FleaMarket.Data;
+using FleaMarket.Interfaces.Repositories;
 using FleaMarket.Models;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace FleaMarket
+namespace FleaMarket.Domain.Repositories
 {
     public class ItemRepository : Repository<Item, int>, IItemRepository
     {
@@ -14,25 +15,25 @@ namespace FleaMarket
         {
             if (string.IsNullOrEmpty(searchString))
             {
-                return this.GetAllItemsWithCategories();
+                return GetAllItemsWithCategories();
             }
 
-            return this.context.Items.Include(i => i.Categories).Where(i => i.Name.Contains(searchString) || i.Description.Contains(searchString)).ToList();
+            return context.Items.Include(i => i.Categories).Where(i => i.Name.Contains(searchString) || i.Description.Contains(searchString)).ToList();
         }
 
         public IEnumerable<Image> GetAllCovers()
         {
-            return this.context.Images.Where(i => i.IsCover).ToList();
+            return context.Images.Where(i => i.IsCover).ToList();
         }
 
         public IEnumerable<Item> GetAllItemsWithCategories()
         {
-            return this.context.Items.Include(i => i.Categories).ToList();
+            return context.Items.Include(i => i.Categories).ToList();
         }
 
         public Category GetCategoryById(int id)
         {
-            return this.context.Categories.Find(id);
+            return context.Categories.Find(id);
         }
 
         public IEnumerable<Category> GetCategoriesByCollectionId(IEnumerable<int> ids)
@@ -52,7 +53,7 @@ namespace FleaMarket
 
         public IEnumerable<Category> GetAllCategories()
         {
-            return this.context.Categories.ToList();
+            return context.Categories.ToList();
         }
     }
 }

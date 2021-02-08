@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-namespace FleaMarket.Extensions
+namespace FleaMarket.Business.Extensions
 {
     public static class EnumerableExtensions
     {

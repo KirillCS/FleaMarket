@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 
-namespace FleaMarket
+namespace FleaMarket.Business
 {
     public static class Guard
     {

@@ -1,6 +1,6 @@
-﻿using FleaMarket.Extensions;
+﻿using FleaMarket.Business.Extensions;
+using FleaMarket.Business.Services;
 using FleaMarket.Models;
-using FleaMarket.Services;
 using Microsoft.AspNetCore.Http;
 using System.Collections.Generic;
 using System.Linq;

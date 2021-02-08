@@ -1,7 +1,10 @@
 using AutoMapper;
+using FleaMarket.Business.Services;
 using FleaMarket.Data;
+using FleaMarket.Domain.Repositories;
+using FleaMarket.Interfaces.Repositories;
+using FleaMarket.Interfaces.Services;
 using FleaMarket.Models;
-using FleaMarket.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;

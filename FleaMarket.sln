@@ -3,13 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30204.135
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Web", "FleaMarket\Web.csproj", "{75524321-DBCE-4307-B930-F5BE1BA6920A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FleaMarket.Web", "FleaMarket\FleaMarket.Web.csproj", "{75524321-DBCE-4307-B930-F5BE1BA6920A}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Data", "Data\Data.csproj", "{6C8F1393-CDBD-4933-9682-B3EF8011262C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FleaMarket.Domain", "Data\FleaMarket.Domain.csproj", "{6C8F1393-CDBD-4933-9682-B3EF8011262C}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Models", "Models\Models.csproj", "{666E6B72-A69F-4160-BB6C-6AC31CB88EFA}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FleaMarket.Interfaces", "FleaMarket.Interfaces\FleaMarket.Interfaces.csproj", "{206218D3-95CF-4E62-9235-8E000A445382}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Repositories", "Repositories\Repositories.csproj", "{582B4A07-D827-48A4-B292-3E2E1A60335F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FleaMarket.Business", "FleaMarket.Business\FleaMarket.Business.csproj", "{9B6CC600-1B2A-492A-87FF-2DE766C0FA0D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -25,14 +25,14 @@ Global
 		{6C8F1393-CDBD-4933-9682-B3EF8011262C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6C8F1393-CDBD-4933-9682-B3EF8011262C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6C8F1393-CDBD-4933-9682-B3EF8011262C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{666E6B72-A69F-4160-BB6C-6AC31CB88EFA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{666E6B72-A69F-4160-BB6C-6AC31CB88EFA}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{666E6B72-A69F-4160-BB6C-6AC31CB88EFA}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{666E6B72-A69F-4160-BB6C-6AC31CB88EFA}.Release|Any CPU.Build.0 = Release|Any CPU
-		{582B4A07-D827-48A4-B292-3E2E1A60335F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{582B4A07-D827-48A4-B292-3E2E1A60335F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{582B4A07-D827-48A4-B292-3E2E1A60335F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{582B4A07-D827-48A4-B292-3E2E1A60335F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{206218D3-95CF-4E62-9235-8E000A445382}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{206218D3-95CF-4E62-9235-8E000A445382}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{206218D3-95CF-4E62-9235-8E000A445382}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{206218D3-95CF-4E62-9235-8E000A445382}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9B6CC600-1B2A-492A-87FF-2DE766C0FA0D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9B6CC600-1B2A-492A-87FF-2DE766C0FA0D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9B6CC600-1B2A-492A-87FF-2DE766C0FA0D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9B6CC600-1B2A-492A-87FF-2DE766C0FA0D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

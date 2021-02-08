@@ -1,9 +1,8 @@
-﻿using FleaMarket.Models;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace FleaMarket.Services
+namespace FleaMarket.Interfaces.Services
 {
     /// <summary>
     /// Service saves files received from the form

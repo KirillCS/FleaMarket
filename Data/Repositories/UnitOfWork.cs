@@ -1,6 +1,7 @@
 ﻿using FleaMarket.Data;
+using FleaMarket.Interfaces.Repositories;
 
-namespace FleaMarket
+namespace FleaMarket.Domain.Repositories
 {
     public class UnitOfWork : IUnitOfWork
     {
@@ -16,7 +17,7 @@ namespace FleaMarket
 
         public int Complete()
         {
-            return this.context.SaveChanges();
+            return context.SaveChanges();
         }
     }
 }

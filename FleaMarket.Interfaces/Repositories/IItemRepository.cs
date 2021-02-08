@@ -1,7 +1,7 @@
 ﻿using FleaMarket.Models;
 using System.Collections.Generic;
 
-namespace FleaMarket
+namespace FleaMarket.Interfaces.Repositories
 {
     public interface IItemRepository : IRepository<Item, int>
     {

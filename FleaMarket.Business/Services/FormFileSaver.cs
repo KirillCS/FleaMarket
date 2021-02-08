@@ -1,10 +1,11 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using FleaMarket.Interfaces.Services;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
 
-namespace FleaMarket.Services
+namespace FleaMarket.Business.Services
 {
     public sealed class FormFileSaver : IFormFileSaver
     {

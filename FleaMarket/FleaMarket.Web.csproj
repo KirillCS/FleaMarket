@@ -1,0 +1,24 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <RootNamespace>FleaMarket.Web</RootNamespace>
+    <AssemblyName>FleaMarket.Web</AssemblyName>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Content Remove="wwwroot\img\78e85155f3b3f025_large.jpg" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.1.0" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.4" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Data\FleaMarket.Domain.csproj" />
+    <ProjectReference Include="..\FleaMarket.Business\FleaMarket.Business.csproj" />
+    <ProjectReference Include="..\FleaMarket.Interfaces\FleaMarket.Interfaces.csproj" />
+  </ItemGroup>
+
+</Project>
