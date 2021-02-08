@@ -24,8 +24,8 @@ namespace FleaMarket.Models
 
         public Image(string path, bool isCover = false)
         {
-            this.Path = path;
-            this.IsCover = isCover;
+            Path = path;
+            IsCover = isCover;
         }
     }
 }
