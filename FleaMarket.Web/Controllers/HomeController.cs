@@ -1,7 +1,6 @@
 ﻿using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
-using FleaMarket.ViewModels;
-using System.Linq;
+using FleaMarket.Web.ViewModels;
 using FleaMarket.Interfaces.Repositories;
 
 namespace FleaMarket.Controllers

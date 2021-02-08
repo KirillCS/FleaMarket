@@ -2,7 +2,7 @@
 using FleaMarket.Helpers;
 using FleaMarket.Interfaces.Repositories;
 using FleaMarket.Models;
-using FleaMarket.ViewModels;
+using FleaMarket.Web.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;

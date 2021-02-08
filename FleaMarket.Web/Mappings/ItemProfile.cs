@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using FleaMarket.Models;
-using FleaMarket.ViewModels;
+using FleaMarket.Web.ViewModels;
 using System.Globalization;
 
 namespace FleaMarket.Mappings

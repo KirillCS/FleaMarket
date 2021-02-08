@@ -7,6 +7,8 @@ namespace FleaMarket.Interfaces.Repositories
     {
         IEnumerable<Item> SearchItems(string searchString);
 
+        Image GetCoverByItemId(int id);
+
         IEnumerable<Item> GetAllItemsWithCategories();
 
         IEnumerable<Image> GetAllCovers();

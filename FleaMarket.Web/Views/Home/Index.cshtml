@@ -4,7 +4,7 @@
     ViewData["Title"] = "Home Page";
 }
 
-@functions 
+@functions
 {
     public string SetImagePath(string path = null) =>
         Configuration.Value.ImagesFolder + (!string.IsNullOrEmpty(path) ? path : Configuration.Value.ImagePlaceholderPath);
@@ -27,56 +27,50 @@
     </div>
 
     <div class="col-md-8 col-lg-9">
-        <form class="d-flex mb-3" method="get">
-            <input class="form-control mr-2" name="searchString" value="@Model.SearchString" type="search" placeholder="Search by name and description" aria-label="Search">
-            <button class="btn btn-outline-success" type="submit" title="Search">
+        <div class="d-flex mb-3">
+            <input id="js-search-input" class="form-control mr-2" name="searchString" type="search" placeholder="Search by name and description" aria-label="Search">
+            <button id="js-clear-search-button" class="btn btn-outline-secondary" title="Search">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
-                    <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
+                    <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z" />
                 </svg>
             </button>
-        </form>
-        @if (!string.IsNullOrEmpty(Model.SearchString))
-        {
-            <div class="small mb-3">
-                Search result by "@Model.SearchString"
-            </div>
-        }
+        </div>
 
-        @if (!Model.Items.IsNullOrEmpty())
-        {
-            <ul class="list-group">
-                @foreach (var item in Model.Items)
-                {
-                    <li class="list-group-item">
-                        <div class="d-flex align-items-center">
-                            <div class="img-cover">
-                                <a class="card-link text-wrap" href="#"><img src="@SetImagePath(Model.Covers.FirstOrDefault(c => c.ItemId == item.Id)?.Path)" alt="@item.Name" /></a>
+        <ul id="js-items-list" class="list-group">
+            @foreach (var item in Model.Items)
+            {
+                <li class="list-group-item">
+                    <div class="d-flex align-items-center">
+                        <div class="img-cover">
+                            <a class="card-link text-wrap" href="#"><img src="@SetImagePath(Model.Covers.FirstOrDefault(c => c.ItemId == item.Id)?.Path)" alt="@item.Name" /></a>
+                        </div>
+                        <div class="d-flex justify-content-between flex-column p-0 pl-3 w-100">
+                            <h5><a class="card-link text-wrap" href="#">@item.Name</a></h5>
+                            <div class="mb-1 limited-text line-clamp-1">
+                                @for (int i = 0; i < item.Categories.Count; i++)
+                                {
+                                    <a class="ml-0" href="#" @*asp-route-categoryId="@item.Categories[i].Id"*@>@item.Categories[i].Name</a>
+                                }
+
+                                @if (item.TradeEnabled)
+                                {
+                                    @:exchange is available
+                                }
                             </div>
-                            <div class="d-flex justify-content-between flex-column p-0 pl-3 w-100">
-                                <h5><a class="card-link text-wrap" href="#">@item.Name</a></h5>
-                                <div class="mb-1 limited-text line-clamp-1">
-                                    @for (int i = 0; i < item.Categories.Count; i++)
-                                    {
-                                        <a class="ml-0" href="#" @*asp-route-categoryId="@item.Categories[i].Id"*@>@item.Categories[i].Name</a>
-                                    }
-
-                                    @if (item.TradeEnabled)
-                                    {
-                                        @:exchange is available
-                                    }
-                                </div>
-                                <div class="text-black-50 mb-2 limited-text line-clamp-2 hidden-sm">
-                                    @(new HtmlString(item.Description.Replace("\r\n", "<br>")))
-                                </div>
-                                <div class="d-flex flex-row flex-wrap justify-content-between align-items-center">
-                                    <h5>Price: @(item.PriceType == PriceType.Definite ? item.Price?.ToString() + Configuration.Value.CurrencySymbol : item.PriceType.ToString())</h5>
-                                    <div class="small text-muted">@item.PublishingDate</div>
-                                </div>
+                            <div class="text-black-50 mb-2 limited-text line-clamp-2 hidden-sm">
+                                @(new HtmlString(item.Description.Replace("\r\n", "<br>")))
+                            </div>
+                            <div class="d-flex flex-row flex-wrap justify-content-between align-items-center">
+                                <h5>Price: @(item.PriceType == PriceType.Definite ? item.Price?.ToString() + Configuration.Value.CurrencySymbol : item.PriceType.ToString())</h5>
+                                <div class="small text-muted">@item.PublishingDate</div>
                             </div>
                         </div>
-                    </li>
-                }
-            </ul>
-        }
+                    </div>
+                </li>
+            }
+        </ul>
     </div>
 </div>
+
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/js/searching-filtering.js"></script>

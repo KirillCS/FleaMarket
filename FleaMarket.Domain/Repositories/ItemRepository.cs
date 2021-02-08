@@ -23,6 +23,11 @@ namespace FleaMarket.Domain.Repositories
                                 .ToList();
         }
 
+        public Image GetCoverByItemId(int id)
+        {
+            return context.Images.FirstOrDefault(i => i.IsCover && i.ItemId == id);
+        }
+
         public IEnumerable<Image> GetAllCovers()
         {
             return context.Images.Where(i => i.IsCover).ToList();

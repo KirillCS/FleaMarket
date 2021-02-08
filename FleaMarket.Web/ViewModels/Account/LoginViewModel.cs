@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace FleaMarket.ViewModels
+namespace FleaMarket.Web.ViewModels
 {
     public class LoginViewModel
     {

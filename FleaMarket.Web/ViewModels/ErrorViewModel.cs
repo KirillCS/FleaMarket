@@ -1,6 +1,6 @@
 using System;
 
-namespace FleaMarket.ViewModels
+namespace FleaMarket.Web.ViewModels
 {
     public class ErrorViewModel
     {

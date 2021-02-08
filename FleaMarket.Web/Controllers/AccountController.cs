@@ -1,5 +1,5 @@
 ﻿using FleaMarket.Models;
-using FleaMarket.ViewModels;
+using FleaMarket.Web.ViewModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
