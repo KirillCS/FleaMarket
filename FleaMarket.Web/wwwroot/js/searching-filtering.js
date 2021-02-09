@@ -4,6 +4,9 @@
     let resultLabel = $('#js-search-result-label');
     let loading = $('#js-loading');
     let itemsList = $('#js-items-list');
+    let itemTemplate = $('li:first', itemsList);
+
+    itemTemplate.hide();
 
     $(input).keypress(function (e) {
         if (e.keyCode !== 13) {
@@ -44,41 +47,35 @@
         });
     }
 
-    function appendItemToList(itemsList, itemData) {
-        let cover = itemData['cover'];
-        let item = itemData['item'];
+    function appendItemToList(itemsList, data) {
+        let coverData = data['cover'];
+        let itemData = data['item'];
 
         let currencySymbol = $(itemsList).data('currencySymbol');
 
         let categories = '';
-        if (item['categories']) {
-            for (var i = 0; i < item['categories'].length; i++) {
-                categories += `<a class="ml-0" href="#">${item['categories'][i]['name']}</a>\n`
+        if (itemData['categories']) {
+            for (var i = 0; i < itemData['categories'].length; i++) {
+                categories += `<a class="ml-0" href="#">${itemData['categories'][i]['name']}</a>\n`
             }
         }
 
-        $(itemsList).append(`
-            <li class="list-group-item">
-                <div class="d-flex align-items-center">
-                    <div class="img-cover">
-                        <a class="card-link text-wrap" href="#"><img src="${cover['path']}" alt="${item['name']}" /></a>
-                    </div>
-                    <div class="d-flex justify-content-between flex-column p-0 pl-3 w-100">
-                        <h5><a class="card-link text-wrap" href="#">${item['name']}</a></h5>
-                        <div class="mb-1 limited-text line-clamp-1">
-                            ${categories}
-                            ${item['tradeEnabled'] ? 'exchange is available' : ''}
-                        </div>
-                        <div class="text-black-50 mb-2 limited-text line-clamp-2 hidden-sm">
-                            ${item['description'] != null ? item['description'].replaceAll('\r\n', '<br>') : ''}
-                        </div>
-                        <div class="d-flex flex-row flex-wrap justify-content-between align-items-center">
-                            <h5>Price: ${item['priceType'] === 0 ? 'Free' : item['priceType'] === 1 ? 'Contract' : parseFloat(item['price']).toFixed(2) + currencySymbol}</h5>
-                            <div class="small text-muted">${getLocalDate(new Date(item['publishingDate']).toString())}</div>
-                        </div>
-                    </div>
-                </div>
-            </li>
-        `);
+        let tradeEnabled = itemData['tradeEnabled'] ? 'exchange is available' : '';
+        let description = itemData['description'] != null ? itemData['description'].replaceAll('\r\n', '<br>') : '';
+        let price = itemData['priceType'] === 0 ? 'Free' : itemData['priceType'] === 1 ? 'Contract' : parseFloat(itemData['price']).toFixed(2) + currencySymbol;
+        let publishingDate = getLocalDate(new Date(itemData['publishingDate']).toString());
+
+        $(itemTemplate).clone().appendTo(itemsList);
+        let item = $('li:last-child', itemsList);
+        $(item).html($(item).html()
+            .replaceAll('[itemName]', itemData['name'])
+            .replaceAll('[itemCategories]', categories)
+            .replaceAll('[itemTradeEnabled]', tradeEnabled)
+            .replaceAll('[itemDescription]', description)
+            .replaceAll('[itemPrice]', price)
+            .replaceAll('[itemPublishingDate]', publishingDate));
+        $('img', item).attr('src', coverData['path']);
+
+        $(item).show();
     }
 });
