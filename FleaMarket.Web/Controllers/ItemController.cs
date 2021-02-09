@@ -9,7 +9,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 
-namespace FleaMarket.Controllers
+namespace FleaMarket.Web.Controllers
 {
     [Authorize]
     public class ItemController : Controller

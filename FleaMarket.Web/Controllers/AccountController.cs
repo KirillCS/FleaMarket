@@ -2,19 +2,24 @@
 using FleaMarket.Web.ViewModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Localization;
 using System.Threading.Tasks;
 
-namespace FleaMarket.Controllers
+namespace FleaMarket.Web.Controllers
 {
     public class AccountController : Controller
     {
         private readonly UserManager<User> userManager;
         private readonly SignInManager<User> signInManager;
+        private readonly IStringLocalizer<AccountController> localizer;
 
-        public AccountController(UserManager<User> userManager, SignInManager<User> signInManager)
+        public AccountController(UserManager<User> userManager,
+                                 SignInManager<User> signInManager,
+                                 IStringLocalizer<AccountController> localizer)
         {
             this.userManager = userManager;
             this.signInManager = signInManager;
+            this.localizer = localizer;
         }
 
         [HttpGet]
@@ -62,7 +67,7 @@ namespace FleaMarket.Controllers
                     return Redirect("/");
                 }
 
-                ModelState.AddModelError(string.Empty, "Incorrect login or password");
+                ModelState.AddModelError(string.Empty, localizer["IncorrectLoginOrPassword"]);
             }
 
             return View(model);

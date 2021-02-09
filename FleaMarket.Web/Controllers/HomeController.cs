@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using FleaMarket.Web.ViewModels;
 using FleaMarket.Interfaces.Repositories;
 
-namespace FleaMarket.Controllers
+namespace FleaMarket.Web.Controllers
 {
     public class HomeController : Controller
     {
