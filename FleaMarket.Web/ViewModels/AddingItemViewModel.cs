@@ -7,12 +7,12 @@ namespace FleaMarket.Web.ViewModels
 {
     public class AddingItemViewModel
     {
-        [Required(ErrorMessage = "This field is required")]
-        [MaxLength(256)]
-        [Display(Name = "Name", Prompt = "For example: Smartphone \"Apple\"")]
+        [Required(ErrorMessage = "RequiredFieldError")]
+        [MaxLength(256, ErrorMessage = "MaximumLengthError")]
+        [Display(Name = "Name", Prompt = "NamePrompt")]
         public string Name { get; set; }
 
-        [Required(ErrorMessage = "Select the category (-ies) of your item")]
+        [Required(ErrorMessage = "NoSelectedError")]
         [Display(Name = "Categories")]
         public IEnumerable<int> CategoriesIds { get; set; }
 
@@ -26,10 +26,10 @@ namespace FleaMarket.Web.ViewModels
         public IEnumerable<IFormFile> Images { get; set; }
 
         [DataType(DataType.Currency)]
-        [Display(Name = "Price", Prompt = "For example: 299.99")]
+        [Display(Name = "Price", Prompt = "PricePrompt")]
         public string Price { get; set; }
 
-        [Display(Name = "Exchange is possible")]
+        [Display(Name = "TradeEnabled")]
         public bool TradeEnabled { get; set; }
 
         public IEnumerable<Category> DisplayingCategories { get; set; }

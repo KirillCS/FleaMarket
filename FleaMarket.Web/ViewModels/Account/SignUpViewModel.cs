@@ -4,20 +4,20 @@ namespace FleaMarket.Web.ViewModels
 {
     public class SignUpViewModel
     {
-        [Required(ErrorMessage = "Name is the required field")]
-        [MaxLength(256, ErrorMessage = "The maximum name lenght is 256 characters")]
+        [Required(ErrorMessage = "RequiredFieldError")]
+        [MaxLength(256, ErrorMessage = "MaximumLengthError")]
         [Display(Name = "Name")]
         public string Name { get; set; }
 
-        [Required(ErrorMessage = "Password is the required field")]
+        [Required(ErrorMessage = "RequiredFieldError")]
         [DataType(DataType.Password)]
         [Display(Name = "Password")]
         public string Password { get; set; }
 
-        [Required(ErrorMessage = "You must confirm your password")]
+        [Required(ErrorMessage = "MustConfirm")]
         [DataType(DataType.Password)]
-        [Display(Name = "Password confirmation")]
-        [Compare("Password", ErrorMessage = "Passwords don't match")]
+        [Display(Name = "PasswordConfirm")]
+        [Compare("Password", ErrorMessage = "DontMatch")]
         public string ConfirmPassword { get; set; }
     }
 }
