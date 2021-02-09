@@ -76,7 +76,7 @@
                         </div>
                         <div class="d-flex flex-row flex-wrap justify-content-between align-items-center">
                             <h5>Price: ${item['priceType'] === 0 ? 'Free' : item['priceType'] === 1 ? 'Contract' : item['price']}</h5>
-                            <div class="small text-muted">${item['publishingDate']}</div>
+                            <div class="small text-muted">${getLocalDate(new Date(item['publishingDate']).toString())}</div>
                         </div>
                     </div>
                 </div>
