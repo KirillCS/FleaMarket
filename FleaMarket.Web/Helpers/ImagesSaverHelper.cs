@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace FleaMarket.Helpers
 {
-    public static class ImagesSaver
+    public static class ImagesSaverHelper
     {
         public static async Task<IEnumerable<Image>> SaveFormImages(IFormFile cover, IEnumerable<IFormFile> images, string path)
         {

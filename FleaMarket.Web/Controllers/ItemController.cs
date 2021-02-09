@@ -55,7 +55,7 @@ namespace FleaMarket.Controllers
 
             var item = mapper.Map<Item>(model);
             item.UserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            item.Images = (await ImagesSaver.SaveFormImages(model.Cover, model.Images, Path.Combine(environment.WebRootPath, configuration.Value.ImagesFolder))).ToList();
+            item.Images = (await ImagesSaverHelper.SaveFormImages(model.Cover, model.Images, Path.Combine(environment.WebRootPath, configuration.Value.ImagesFolder))).ToList();
             item.Categories = unitOfWork.ItemRepository.GetCategoriesByCollectionId(model.CategoriesIds).ToList();
 
             unitOfWork.ItemRepository.Add(item);

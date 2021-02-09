@@ -1,6 +1,8 @@
 ﻿$(document).ready(function () {
     let input = $('#js-search-input');
     let clearButton = $('#js-clear-search-button');
+    let resultLabel = $('#js-search-result-label');
+    let loading = $('#js-loading');
     let itemsList = $('#js-items-list');
 
     $(input).keypress(function (e) {
@@ -8,48 +10,41 @@
             return;
         }
 
-        $.ajax({
-            url: `/api/search?searchString=${$(input).val()}`,
-            type: 'GET',
-            dataType: 'json',
-            success: function (data) {
-                $(itemsList).html('');
-                if (!$('#js-search-result-label').length) {
-                    $('<div id="js-search-result-label" class="small mb-3"></div>').insertBefore(itemsList);
-                }
-
-                $('#js-search-result-label').html(`Search result by "${$(input).val()}"`);
-
-                for (var i = 0; i < data.length; i++) {
-                    appendItemToList(itemsList, data[i]);
-                }
-            }
-        });
-
-        e.preventDefault();
+        search();
     });
 
     $(clearButton).click(function (e) {
         input.val('');
+        search();
+    });
+
+    function search() {
+        $(resultLabel).hide();
+        $(itemsList).html('');
+        $(loading).show();
         $.ajax({
-            url: '/api/search?searchString=',
+            url: `/api/search`,
             type: 'GET',
+            data: {
+                searchString: $(input).val()
+            },
             dataType: 'json',
+            complete: function () {
+                $(loading).hide();
+            },
             success: function (data) {
-                $(itemsList).html('');
-                $('#js-search-result-label').remove();
+                if ($(input).val().length) {
+                    $(resultLabel).html(`Search result by "${$(input).val()}"`).show();
+                }
 
                 for (var i = 0; i < data.length; i++) {
                     appendItemToList(itemsList, data[i]);
                 }
             }
         });
-
-        e.preventDefault();
-    });
+    }
 
     function appendItemToList(itemsList, itemData) {
-        console.log(itemData);
         let cover = itemData['cover'];
         let item = itemData['item'];
 

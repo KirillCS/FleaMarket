@@ -1,17 +1,13 @@
-﻿using System;
+﻿using FleaMarket.Interfaces.Repositories;
+using FleaMarket.Models;
+using FleaMarket.Web.ViewModels;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Threading.Tasks;
-using FleaMarket.Domain;
-using FleaMarket.Interfaces.Repositories;
-using FleaMarket.Models;
-using FleaMarket.Web.ViewModels;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Options;
 
-namespace FleaMarket.Web.Controllers.API
+namespace FleaMarket.Web.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
@@ -30,20 +26,21 @@ namespace FleaMarket.Web.Controllers.API
         [HttpGet]
         public ActionResult<IEnumerable<SearchViewModel>> Get(string searchString)
         {
-            var data = unitOfWork.ItemRepository.SearchItems(searchString).Select(i => new SearchViewModel { Item = i }).ToArray();
             var pathToPlaceholder = Path.Combine(configuration.Value.ImagesFolder, configuration.Value.ImagePlaceholderPath);
-            for (int i = 0; i < data.Length; i++)
+            var data = unitOfWork.ItemRepository.SearchItems(searchString).Select(item =>
             {
-                data[i].Cover = unitOfWork.ItemRepository.GetCoverByItemId(data[i].Item.Id);
-                if (data[i].Cover != null)
+                var cover = unitOfWork.ItemRepository.GetCoverByItemId(item.Id);
+                if (cover != null)
                 {
-                    data[i].Cover.Path = Path.Combine(configuration.Value.ImagesFolder, data[i].Cover.Path);
+                    cover.Path = Path.Combine(configuration.Value.ImagesFolder, cover.Path);
                 }
                 else
                 {
-                    data[i].Cover = new Image(pathToPlaceholder);
+                    cover = new Image(pathToPlaceholder);
                 }
-            }
+
+                return new SearchViewModel { Item = item, Cover = cover };
+            }).ToArray();
 
             return data.ToArray();
         }
