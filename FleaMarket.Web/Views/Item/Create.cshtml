@@ -1,0 +1,103 @@
+﻿@inject IOptions<ApplicationConfigurations> Configurations
+@model AddingItemViewModel
+@{
+    ViewData["Title"] = "Creating new item";
+}
+
+<link href="~/lib/dropzone/dropzone.css" rel="stylesheet" />
+<link href="~/lib/dropzone-list/dropzone-list.css" rel="stylesheet" />
+
+<h3>Creating new item</h3>
+<form asp-controller="item" asp-action="add" enctype="multipart/form-data" method="post">
+    <div class="col-xl-6 col-lg-7 col-md-8 p-0">
+        <div class="form-group">
+            <label asp-for="Name"></label>
+            <input class="form-control" asp-for="Name" autocomplete="off">
+            <span class="d-inline invalid-feedback" asp-validation-for="Name"></span>
+        </div>
+        @if (!Model.DisplayingCategories.IsNullOrEmpty())
+        {
+            <div class="form-group">
+                <label asp-for="CategoriesIds"></label>
+                @foreach (var category in Model.DisplayingCategories)
+                {
+                    string id = category.Name + category.Id;
+                    bool isSelected = Model.CategoriesIds != null && Model.CategoriesIds.Any(i => i == category.Id);
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="@id" name="@nameof(Model.CategoriesIds)" value="@category.Id" @(isSelected ? "checked" : string.Empty)>
+                        <label class="form-check-label" for="@id">
+                            @category.Name
+                        </label>
+                    </div>
+                }
+                <span class="d-inline invalid-feedback" asp-validation-for="CategoriesIds"></span>
+            </div>
+        }
+        <div class="form-group">
+            <label asp-for="Description"></label>
+            <textarea class="form-control" asp-for="Description" autocomplete="off" rows="6"></textarea>
+            <span class="d-inline invalid-feedback" asp-validation-for="Description"></span>
+        </div>
+    </div>
+    <hr class="my-4" />
+    <div class="col-xl-6 col-lg-7 col-md-8 p-0">
+        <div class="form-group">
+            <label asp-for="Cover"></label>
+            <div class="dropzone">
+                <input class="dropzone__input" name="@nameof(Model.Cover)" type="file" accept="image/*" />
+                <span class="dropzone__remove"></span>
+                <span class="dropzone__prompt" data-prompt="Choose an image or drag it here...">Choose an image or drag it here...</span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="Images"></label>
+            <ul class="dropzone-list" data-imgs-name="@nameof(Model.Images)">
+                <li class="dropzone-item">
+                    <input class="dropzone-item__input" type="file" accept="image/*" />
+                    <span class="dropzone-item__remove"></span>
+                    <span class="dropzone-item__prompt"></span>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <hr class="my-4" />
+    <div class="col-xl-6 col-lg-7 col-md-8 p-0">
+        <div class="form-group d-flex flex-column align-items-start js-price-form-group">
+            <div>
+                <label asp-for="Price"></label> (@Configurations.Value.CurrencySymbol)
+            </div>
+            <div class="mb-2">
+                <div class="custom-control custom-radio">
+                    <input type="radio" id="pricetype-price" name="pricetype" class="custom-control-input" checked>
+                    <label class="custom-control-label" for="pricetype-price">Price</label>
+                </div>
+                <div class="custom-control custom-radio">
+                    <input type="radio" id="pricetype-contract" name="pricetype" class="custom-control-input">
+                    <label class="custom-control-label" for="pricetype-contract">Contract</label>
+                </div>
+                <div class="custom-control custom-radio">
+                    <input type="radio" id="pricetype-free" name="pricetype" class="custom-control-input">
+                    <label class="custom-control-label" for="pricetype-free">Free</label>
+                </div>
+            </div>
+            <input class="form-control js-price-input" asp-for="Price" type="number" step="0.01" min="0" autocomplete="off">
+            <input type="hidden" name="Price" value="" />
+            <span class="d-inline invalid-feedback" asp-validation-for="Price"></span>
+        </div>
+        <div class="form-group form-check">
+            <input class="form-check-input" asp-for="TradeEnabled">
+            <label class="form-check-label" asp-for="TradeEnabled"></label>
+        </div>
+    </div>
+    <hr class="my-4" />
+    <div class="col-xl-6 col-lg-7 col-md-8 p-0">
+        <input class="btn btn-primary btn-block" type="submit" value="Create" />
+    </div>
+</form>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script src="~/lib/dropzone/dropzone.js"></script>
+    <script src="~/lib/dropzone-list/dropzone-list.js"></script>
+    <script src="~/js/price-type-switcher.js"></script>
+}

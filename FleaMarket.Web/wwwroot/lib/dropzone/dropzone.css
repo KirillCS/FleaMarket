@@ -1,0 +1,75 @@
+﻿.dropzone {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    height: 100%;
+    width: 100%;
+    padding: 10px;
+    cursor: pointer;
+    background-color: #E9ECEF;
+    border: 2px dashed #b3b6b8;
+    border-radius: 3px;
+}
+
+.dropzone--over {
+    border-style: solid;
+}
+
+.dropzone__input {
+    display: none;
+}
+
+.dropzone__prompt {
+    display: inline;
+    text-align: center;
+    font-size: 20px;
+    color: #b3b6b8;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    user-select: none;
+}
+
+.dropzone__thumb {
+    width: 100%;
+    height: 200px;
+    border-radius: 4px;
+    overflow: hidden;
+    background-color: #cccccc;
+    background-size: cover;
+    background-position: center;
+    position: relative;
+}
+
+.dropzone:hover.dropzone--filled .dropzone__remove {
+    display: flex;
+}
+
+.dropzone__remove {
+    display: none;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 2px 6px;
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 3px;
+    color: #b3b6b8;
+    font-family: consolas;
+    font-weight: bold;
+    cursor: pointer;
+    z-index: 5;
+}
+
+.dropzone__remove::before {
+    content: '×';
+}
+
+.dropzone__remove:hover {
+    background-color: rgba(0, 0, 0, 0.65);
+}
+
+.dropzone__remove:active {
+    background-color: rgba(0, 0, 0, 0.75);
+}
