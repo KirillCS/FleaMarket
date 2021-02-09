@@ -1,4 +1,6 @@
-﻿<!DOCTYPE html>
+﻿@inject IViewLocalizer Localizer
+@inject IHtmlLocalizer<Startup> SharedLocalizer
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -27,10 +29,10 @@
                                         @User.Identity.Name
                                     </button>
                                     <ul class="dropdown-menu">
-                                        <li><a class="dropdown-item" href="#">My items</a></li>
-                                        <li><a class="dropdown-item" asp-controller="item" asp-action="create">Create new item</a></li>
+                                        <li><a class="dropdown-item" href="#">@SharedLocalizer["MyItems"]</a></li>
+                                        <li><a class="dropdown-item" asp-controller="item" asp-action="create">@Localizer["CreateNewItem"]</a></li>
                                         <li><hr class="dropdown-divider"></li>
-                                        <li><a class="dropdown-item" asp-controller="account" asp-action="logout">Log out</a></li>
+                                        <li><a class="dropdown-item" asp-controller="account" asp-action="logout">@Localizer["LogOut"]</a></li>
                                     </ul>
                                 </div>
                             </li>
@@ -38,10 +40,10 @@
                         else
                         {
                             <li class="nav-item">
-                                <a class="nav-link" asp-controller="account" asp-action="login" asp-route-returnUrl="@Context.Request.Path">Log in</a>
+                                <a class="nav-link" asp-controller="account" asp-action="login" asp-route-returnUrl="@Context.Request.Path">@SharedLocalizer["Login"]</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" asp-controller="account" asp-action="signup">Sign up</a>
+                                <a class="nav-link" asp-controller="account" asp-action="signup">@SharedLocalizer["SignUp"]</a>
                             </li>
                         }
 

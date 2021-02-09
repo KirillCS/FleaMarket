@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
 
-namespace FleaMarket
+namespace FleaMarket.Web
 {
     public class Program
     {

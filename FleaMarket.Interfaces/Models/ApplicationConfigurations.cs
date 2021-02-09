@@ -1,4 +1,4 @@
-﻿namespace FleaMarket
+﻿namespace FleaMarket.Models
 {
     /// <summary> 
     /// Contains values of the collection "ApplicationConfigurations" of the appsettings file.

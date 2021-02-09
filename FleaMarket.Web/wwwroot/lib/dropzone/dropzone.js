@@ -4,6 +4,7 @@
     function setDropzone(dropzone) {
         const input = dropzone.querySelector('.dropzone__input');
         const prompt = dropzone.querySelector('.dropzone__prompt').dataset.prompt;
+        dropzone.querySelector('.dropzone__prompt').innerHTML = prompt;
 
         input.addEventListener('change', e => {
             if (e.target.files.length) {

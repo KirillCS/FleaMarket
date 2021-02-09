@@ -1,12 +1,14 @@
 ﻿@model SignUpViewModel
+@inject IViewLocalizer Localizer
+@inject IHtmlLocalizer<Startup> SharedLocalizer
 @{
-    ViewData["Title"] = "Sign up";
+    ViewData["Title"] = SharedLocalizer["SignUp"];
 }
 
 <div class="row mt-5">
     <div class="col-xl-5 col-lg-6 col-md-7 col-sm-8 mx-auto">
         <div class="jumbotron py-5">
-            <h3 class="text-center">Sign up</h3>
+            <h3 class="text-center">@SharedLocalizer["SignUp"]</h3>
             <form asp-controller="account" asp-action="signup" method="post">
                 <div class="form-group">
                     <label asp-for="Name"></label>
@@ -24,10 +26,10 @@
                     <span class="d-inline invalid-feedback" asp-validation-for="ConfirmPassword"></span>
                 </div>
                 <div class="d-inline invalid-feedback error-list" asp-validation-summary="ModelOnly"></div>
-                <input class="btn btn-primary btn-block mt-4" type="submit" value="Sign up" />
+                <input class="btn btn-primary btn-block mt-4" type="submit" value="@SharedLocalizer["SignUp"]" />
             </form>
             <div class="d-block text-center mt-2">
-                <a class="card-link small" asp-controller="account" asp-action="login">Already have an account? Login...</a>
+                <a class="card-link small" asp-controller="account" asp-action="login">@Localizer["AlreadyHaveAccount"]</a>
             </div>
         </div>
     </div>

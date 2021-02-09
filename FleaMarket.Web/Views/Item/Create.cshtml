@@ -1,13 +1,14 @@
 ﻿@inject IOptions<ApplicationConfigurations> Configurations
+@inject IViewLocalizer Localizer
 @model AddingItemViewModel
 @{
-    ViewData["Title"] = "Creating new item";
+    ViewData["Title"] = Localizer["CreatingNewItem"];
 }
 
 <link href="~/lib/dropzone/dropzone.css" rel="stylesheet" />
 <link href="~/lib/dropzone-list/dropzone-list.css" rel="stylesheet" />
 
-<h3>Creating new item</h3>
+<h3>@Localizer["CreatingNewItem"]</h3>
 <form asp-controller="item" asp-action="add" enctype="multipart/form-data" method="post">
     <div class="col-xl-6 col-lg-7 col-md-8 p-0">
         <div class="form-group">
@@ -46,7 +47,7 @@
             <div class="dropzone">
                 <input class="dropzone__input" name="@nameof(Model.Cover)" type="file" accept="image/*" />
                 <span class="dropzone__remove"></span>
-                <span class="dropzone__prompt" data-prompt="Choose an image or drag it here...">Choose an image or drag it here...</span>
+                <span class="dropzone__prompt" data-prompt="@Localizer["ChooseImage"]"></span>
             </div>
         </div>
         <div class="form-group">
