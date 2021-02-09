@@ -8,6 +8,7 @@ using FleaMarket.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -45,7 +46,11 @@ namespace FleaMarket
 
             services.AddTransient<IItemService, ItemService>();
 
+            services.AddLocalization(options => options.ResourcesPath = "Resources");
+
             services.AddControllersWithViews()
+                    .AddViewLocalization(LanguageViewLocationExpanderFormat.Suffix)
+                    .AddDataAnnotationsLocalization()
                     .AddNewtonsoftJson(options => options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
         }
 
@@ -68,6 +73,13 @@ namespace FleaMarket
 
             app.UseAuthentication();
             app.UseAuthorization();
+
+            var supportedCulters = new[] { "en" };
+            var localizationOptions = new RequestLocalizationOptions().SetDefaultCulture(supportedCulters[0])
+                                                                      .AddSupportedCultures(supportedCulters)
+                                                                      .AddSupportedUICultures(supportedCulters);
+
+            app.UseRequestLocalization(localizationOptions);
 
             app.UseEndpoints(endpoints =>
             {

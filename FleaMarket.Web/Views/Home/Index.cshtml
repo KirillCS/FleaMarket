@@ -1,5 +1,6 @@
 ﻿@model IEnumerable<Category>
 @inject IOptions<ApplicationConfigurations> Configuration
+@inject IViewLocalizer Localizer
 @{
     ViewData["Title"] = "Home Page";
 }
@@ -42,7 +43,7 @@
             <div id="js-loading" class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>
         </div>
 
-        <h5 id="js-no-items-label" style="display: none;">No items</h5>
+        <h5 id="js-no-items-label" style="display: none;">@Localizer["NoItems"]</h5>
 
         <ul id="js-items-list" class="list-group" data-currency-symbol="@Configuration.Value.CurrencySymbol">
             <li class="list-group-item" style="display: none;">
