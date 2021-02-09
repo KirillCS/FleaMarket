@@ -3,10 +3,9 @@
     let clearButton = $('#js-clear-search-button');
     let resultLabel = $('#js-search-result-label');
     let loading = $('#js-loading');
+    let noItemLabel = $('#js-no-items-label');
     let itemsList = $('#js-items-list');
     let itemTemplate = $('li:first', itemsList);
-
-    itemTemplate.hide();
 
     $(input).keypress(function (e) {
         if (e.keyCode !== 13) {
@@ -25,6 +24,7 @@
 
     function search() {
         $(resultLabel).hide();
+        $(noItemLabel).hide();
         $(itemsList).html('');
         $(loading).show();
         $.ajax({
@@ -40,6 +40,12 @@
             success: function (data) {
                 if ($(input).val().length) {
                     $(resultLabel).html(`Search result by "${$(input).val()}"`).show();
+                }
+
+                if (!data.length) {
+                    $(noItemLabel).show();
+                } else {
+                    $(noItemLabel).hide();
                 }
 
                 for (var i = 0; i < data.length; i++) {
