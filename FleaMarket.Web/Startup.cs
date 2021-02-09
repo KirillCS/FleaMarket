@@ -43,6 +43,8 @@ namespace FleaMarket
 
             services.AddTransient<IFormFileSaver, FormFileSaver>();
 
+            services.AddTransient<IItemService, ItemService>();
+
             services.AddControllersWithViews()
                     .AddNewtonsoftJson(options => options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
         }
