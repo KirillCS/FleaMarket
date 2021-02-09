@@ -126,4 +126,7 @@
   <data name="NoItems" xml:space="preserve">
     <value>No items</value>
   </data>
+  <data name="SearchPlaceholder" xml:space="preserve">
+    <value>Search by name and description</value>
+  </data>
 </root>
