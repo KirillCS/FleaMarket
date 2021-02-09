@@ -16,14 +16,7 @@ namespace FleaMarket.Controllers
 
         public IActionResult Index()
         {
-            var model = new HomeViewModel
-            {
-                Items = unitOfWork.ItemRepository.GetAllItemsWithCategories(),
-                Covers = unitOfWork.ItemRepository.GetAllCovers(),
-                Categories = unitOfWork.ItemRepository.GetAllCategories()
-            };
-
-            return View(model);
+            return View(unitOfWork.ItemRepository.GetAllCategories());
         }
 
         public IActionResult Privacy()

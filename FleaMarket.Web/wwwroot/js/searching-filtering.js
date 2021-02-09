@@ -16,10 +16,12 @@
         search();
     });
 
-    $(clearButton).click(function (e) {
+    $(clearButton).click(function () {
         input.val('');
         search();
     });
+
+    search();
 
     function search() {
         $(resultLabel).hide();
