@@ -49,13 +49,16 @@
     });
 
     function appendItemToList(itemsList, itemData) {
+        console.log(itemData);
         let cover = itemData['cover'];
         let item = itemData['item'];
+
+        let currencySymbol = $(itemsList).data('currencySymbol');
 
         let categories = '';
         if (item['categories']) {
             for (var i = 0; i < item['categories'].length; i++) {
-                categories += `<a class="ml-0" href="#">${item['categories'][i]['name']}</a>`
+                categories += `<a class="ml-0" href="#">${item['categories'][i]['name']}</a>\n`
             }
         }
 
@@ -75,7 +78,7 @@
                             ${item['description'] != null ? item['description'].replaceAll('\r\n', '<br>') : ''}
                         </div>
                         <div class="d-flex flex-row flex-wrap justify-content-between align-items-center">
-                            <h5>Price: ${item['priceType'] === 0 ? 'Free' : item['priceType'] === 1 ? 'Contract' : item['price']}</h5>
+                            <h5>Price: ${item['priceType'] === 0 ? 'Free' : item['priceType'] === 1 ? 'Contract' : parseFloat(item['price']).toFixed(2) + currencySymbol}</h5>
                             <div class="small text-muted">${getLocalDate(new Date(item['publishingDate']).toString())}</div>
                         </div>
                     </div>
