@@ -7,7 +7,7 @@ namespace FleaMarket.Interfaces.Repositories
     {
         IEnumerable<Item> GetItemsPage(ItemGettingParameters parameters);
 
-        int GetPagesCount(ItemGettingParameters parameters);
+        int GetItemsCount(ItemGettingParameters parameters);
 
         IEnumerable<Category> GetCategoriesByCollectionId(IEnumerable<int> ids);
 

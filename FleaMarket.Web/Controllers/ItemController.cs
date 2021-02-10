@@ -2,6 +2,7 @@
 using FleaMarket.Interfaces.Repositories;
 using FleaMarket.Interfaces.Services;
 using FleaMarket.Models;
+using FleaMarket.Web.Responses;
 using FleaMarket.Web.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -37,20 +38,17 @@ namespace FleaMarket.Web.Controllers
 
         [HttpGet]
         [Route("api")]
-        public ActionResult<IEnumerable<Item>> Get([FromQuery]ItemGettingParameters parameters)
+        public ActionResult<GetItemResponse> Get([FromQuery]ItemGettingParameters parameters)
         {
             var items = unitOfWork.ItemRepository.GetItemsPage(parameters).Select(i => SetCoverPath(i)).ToArray();
 
-            var metadata = new
+            var response = new GetItemResponse
             {
-                parameters.PageNumber,
-                parameters.PageSize,
-                TotalNumber = unitOfWork.ItemRepository.GetPagesCount(parameters)
+                Items = items,
+                TotalNumber = unitOfWork.ItemRepository.GetItemsCount(parameters)
             };
 
-            Response.Headers.Add("Pagination-Data", JsonConvert.SerializeObject(metadata));
-
-            return Ok(items);
+            return Ok(response);
         }
 
         [HttpGet]

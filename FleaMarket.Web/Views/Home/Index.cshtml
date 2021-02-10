@@ -45,7 +45,7 @@
 
         <h5 id="js-no-items-label" style="display: none;">@Localizer["NoItems"]</h5>
 
-        <ul id="js-items-list" class="list-group" data-currency-symbol="@Configuration.Value.CurrencySymbol">
+        <ul id="js-items-list" class="list-group mb-3" data-currency-symbol="@Configuration.Value.CurrencySymbol">
             <li class="list-group-item" style="display: none;">
                 <div class="d-flex align-items-center">
                     <div class="img-cover">
@@ -68,6 +68,8 @@
                 </div>
             </li>
         </ul>
+
+        <div id="paginator" class="paginationjs"></div>
     </div>
 </div>
 

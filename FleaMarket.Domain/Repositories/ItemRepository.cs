@@ -37,12 +37,11 @@ namespace FleaMarket.Domain.Repositories
                                 .ToArray();
         }
 
-        public int GetPagesCount(ItemGettingParameters parameters)
+        public int GetItemsCount(ItemGettingParameters parameters)
         {
             string searchString = parameters.SearchString ?? string.Empty;
-            double itemsCount = context.Items.Count(it => it.Name.Contains(searchString) || it.Description.Contains(searchString));
 
-            return (int)Math.Round(itemsCount / parameters.PageSize, MidpointRounding.ToPositiveInfinity);
+            return context.Items.Count(it => it.Name.Contains(searchString) || it.Description.Contains(searchString));
         }
 
         public IEnumerable<Category> GetCategoriesByCollectionId(IEnumerable<int> ids)
