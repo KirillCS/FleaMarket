@@ -28,7 +28,7 @@
         $(itemsList).html('');
         $(loading).show();
         $.ajax({
-            url: `/api/search`,
+            url: `/item/api`,
             type: 'GET',
             data: {
                 searchString: $(input).val()

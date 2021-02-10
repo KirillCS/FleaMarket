@@ -48,6 +48,8 @@ namespace FleaMarket.Web
 
             services.AddLocalization(options => options.ResourcesPath = "Resources");
 
+            //services.AddCors();
+
             services.AddControllersWithViews()
                     .AddViewLocalization(LanguageViewLocationExpanderFormat.Suffix)
                     .AddDataAnnotationsLocalization()
@@ -88,6 +90,8 @@ namespace FleaMarket.Web
                     pattern: "{controller=Home}/{action=Index}/{id?}");
                 endpoints.MapControllers();
             });
+
+            //app.UseCors();
         }
     }
 }
