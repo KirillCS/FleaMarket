@@ -7,8 +7,6 @@ using FleaMarket.Web.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
-using Newtonsoft.Json;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Security.Claims;

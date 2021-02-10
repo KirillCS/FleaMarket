@@ -1,7 +1,6 @@
 ﻿using FleaMarket.Interfaces.Repositories;
 using FleaMarket.Models;
 using Microsoft.EntityFrameworkCore;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -32,6 +31,7 @@ namespace FleaMarket.Domain.Repositories
                                         TradeEnabled = temp.it.TradeEnabled,
                                         Price = temp.it.Price,
                                         UserId = temp.it.UserId,
+                                        Categories = temp.it.Categories,
                                         Images = new List<Image>() { im }
                                     })
                                 .ToArray();
