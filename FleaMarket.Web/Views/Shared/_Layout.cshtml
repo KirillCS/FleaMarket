@@ -33,7 +33,7 @@
                                         <li><a class="dropdown-item" href="#">@SharedLocalizer["MyItems"]</a></li>
                                         <li><a class="dropdown-item" asp-controller="item" asp-action="create">@Localizer["CreateNewItem"]</a></li>
                                         <li><hr class="dropdown-divider"></li>
-                                        <li><a class="dropdown-item" asp-controller="account" asp-action="logout">@Localizer["LogOut"]</a></li>
+                                        <li><a class="dropdown-item" asp-controller="account" asp-action="logout" asp-route-returnUrl="@Context.Request.Path">@Localizer["LogOut"]</a></li>
                                     </ul>
                                 </div>
                             </li>

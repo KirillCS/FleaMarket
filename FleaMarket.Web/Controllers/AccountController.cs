@@ -3,10 +3,12 @@ using FleaMarket.Web.ViewModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Localization;
+using System.Diagnostics;
 using System.Threading.Tasks;
 
 namespace FleaMarket.Web.Controllers
 {
+    [Route("[controller]")]
     public class AccountController : Controller
     {
         private readonly UserManager<User> userManager;
@@ -23,9 +25,11 @@ namespace FleaMarket.Web.Controllers
         }
 
         [HttpGet]
+        [Route("[action]")]
         public IActionResult SignUp() => View();
 
         [HttpPost]
+        [Route("[action]")]
         public async Task<IActionResult> SignUp(SignUpViewModel model)
         {
             if (ModelState.IsValid)
@@ -48,10 +52,12 @@ namespace FleaMarket.Web.Controllers
         }
 
         [HttpGet]
+        [Route("[action]")]
         public IActionResult Login(string returnUrl = null) =>
             View(new LoginViewModel(returnUrl));
 
         [HttpPost]
+        [Route("[action]")]
         public async Task<IActionResult> Login(LoginViewModel model)
         {
             if (ModelState.IsValid)
@@ -59,7 +65,8 @@ namespace FleaMarket.Web.Controllers
                 var result = await signInManager.PasswordSignInAsync(model.Name, model.Password, model.IsPersistent, false);
                 if (result.Succeeded)
                 {
-                    if (!string.IsNullOrEmpty(model.ReturnUrl) && Url.IsLocalUrl(model.ReturnUrl))
+                    Debug.WriteLine(Url.Action());
+                    if (!string.IsNullOrEmpty(model.ReturnUrl) && Url.IsLocalUrl(model.ReturnUrl) && model.ReturnUrl != Url.Action())
                     {
                         return Redirect(model.ReturnUrl);
                     }
@@ -74,10 +81,12 @@ namespace FleaMarket.Web.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Logout()
+        [Route("[action]")]
+        public async Task<IActionResult> Logout(string returnUrl = null)
         {
             await signInManager.SignOutAsync();
-            return Redirect("/");
+
+            return string.IsNullOrEmpty(returnUrl) ? Redirect("/") : Redirect(returnUrl);
         }
     }
 }
