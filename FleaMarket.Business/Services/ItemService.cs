@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using FleaMarket.Interfaces.Repositories;
 using FleaMarket.Interfaces.Services;
 using FleaMarket.Models;
@@ -32,7 +31,7 @@ namespace FleaMarket.Business.Services
             this.configuration = configuration;
         }
 
-        public async Task<IEnumerable<Image>> SaveAddingFormImages(IFormFile cover, IEnumerable<IFormFile> images)
+        public async Task<List<Image>> SaveAddingFormImages(IFormFile cover, IEnumerable<IFormFile> images)
         {
             var result = new List<Image>();
             var path = Path.Combine(environment.WebRootPath, configuration.Value.ImagesFolder);
@@ -42,7 +41,7 @@ namespace FleaMarket.Business.Services
                 result.Add(new Image(fileName, true));
             }
 
-            if (images.IsNullOrEmpty())
+            if (!images.IsNullOrEmpty())
             {
                 var imagesNames = await fileSaver.SaveFiles(images, path);
                 result.AddRange(imagesNames.Select(n => new Image(n)));
@@ -51,9 +50,9 @@ namespace FleaMarket.Business.Services
             return result;
         }
 
-        public IEnumerable<Category> GetSelectedCategories(IEnumerable<int> categoriesIds)
+        public List<Category> GetSelectedCategories(IEnumerable<int> categoriesIds)
         {
-            return unitOfWork.ItemRepository.GetCategoriesByCollectionId(categoriesIds);
+            return unitOfWork.ItemRepository.GetCategoriesByCollectionId(categoriesIds).ToList();
         }
 
         public void AddAndSaveItem(Item item)

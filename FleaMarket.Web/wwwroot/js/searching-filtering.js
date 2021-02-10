@@ -55,9 +55,8 @@
         });
     }
 
-    function appendItemToList(itemsList, data) {
-        let coverData = data['cover'];
-        let itemData = data['item'];
+    function appendItemToList(itemsList, itemData) {
+        let coverData = itemData['images'][0];
 
         let currencySymbol = $(itemsList).data('currencySymbol');
 
@@ -82,7 +81,9 @@
             .replaceAll('[itemDescription]', description)
             .replaceAll('[itemPrice]', price)
             .replaceAll('[itemPublishingDate]', publishingDate));
-        $('img', item).attr('src', coverData['path']);
+        if (coverData) {
+            $('img', item).attr('src', coverData['path']);
+        }
 
         $(item).show();
     }

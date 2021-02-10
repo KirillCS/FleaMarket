@@ -12,15 +12,25 @@ namespace FleaMarket.Domain.Repositories
 
         public IEnumerable<Item> SearchItems(string searchString)
         {
-            if (string.IsNullOrEmpty(searchString))
-            {
-                return GetAllItemsWithCategories();
-            }
+            searchString ??= string.Empty;
 
-            return context.Items.Include(i => i.Categories)
-                                .Where(i => i.Name.Contains(searchString) || i.Description.Contains(searchString))
+            return context.Items.Include(it => it.Categories)
+                                .Where(it => it.Name.Contains(searchString) || it.Description.Contains(searchString))
                                 .OrderByDescending(i => i.PublishingDate)
-                                .ToList();
+                                .GroupJoin(context.Images.Where(im => im.IsCover), it => it.Id, im => im.ItemId, (it, im) => new { it, im })
+                                .SelectMany(temp => temp.im.DefaultIfEmpty(), (temp, im) =>
+                                    new Item
+                                    {
+                                        Id = temp.it.Id,
+                                        Name = temp.it.Name,
+                                        Description = temp.it.Description,
+                                        PublishingDate = temp.it.PublishingDate,
+                                        TradeEnabled = temp.it.TradeEnabled,
+                                        Price = temp.it.Price,
+                                        UserId = temp.it.UserId,
+                                        Images = new List<Image>() { im }
+                                    })
+                                .ToArray();
         }
 
         public Image GetCoverByItemId(int id)

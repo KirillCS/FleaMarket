@@ -49,8 +49,8 @@ namespace FleaMarket.Web.Controllers
 
             var item = mapper.Map<Item>(model);
             item.UserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            item.Images = (await itemService.SaveAddingFormImages(model.Cover, model.Images)).ToList();
-            item.Categories = unitOfWork.ItemRepository.GetCategoriesByCollectionId(model.CategoriesIds).ToList();
+            item.Images = (await itemService.SaveAddingFormImages(model.Cover, model.Images));
+            item.Categories = itemService.GetSelectedCategories(model.CategoriesIds);
 
             itemService.AddAndSaveItem(item);
 

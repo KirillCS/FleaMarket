@@ -7,9 +7,9 @@ namespace FleaMarket.Interfaces.Services
 {
     public interface IItemService
     {
-        Task<IEnumerable<Image>> SaveAddingFormImages(IFormFile cover, IEnumerable<IFormFile> images);
+        Task<List<Image>> SaveAddingFormImages(IFormFile cover, IEnumerable<IFormFile> images);
 
-        IEnumerable<Category> GetSelectedCategories(IEnumerable<int> categoriesIds);
+        List<Category> GetSelectedCategories(IEnumerable<int> categoriesIds);
 
         void AddAndSaveItem(Item item);
     }

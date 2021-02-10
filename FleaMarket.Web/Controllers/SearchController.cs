@@ -1,4 +1,5 @@
-﻿using FleaMarket.Interfaces.Repositories;
+﻿using FleaMarket.Business.Extensions;
+using FleaMarket.Interfaces.Repositories;
 using FleaMarket.Models;
 using FleaMarket.Web.ViewModels;
 using Microsoft.AspNetCore.Mvc;
@@ -24,25 +25,24 @@ namespace FleaMarket.Web.Controllers
         }
 
         [HttpGet]
-        public ActionResult<IEnumerable<SearchViewModel>> Get(string searchString)
+        public ActionResult<IEnumerable<Item>> Get(string searchString = "")
         {
             var pathToPlaceholder = Path.Combine(configuration.Value.ImagesFolder, configuration.Value.ImagePlaceholderPath);
-            var data = unitOfWork.ItemRepository.SearchItems(searchString).Select(item =>
+            var items = unitOfWork.ItemRepository.SearchItems(searchString).Select(i =>
             {
-                var cover = unitOfWork.ItemRepository.GetCoverByItemId(item.Id);
-                if (cover != null)
+                if (i.Images[0] != null)
                 {
-                    cover.Path = Path.Combine(configuration.Value.ImagesFolder, cover.Path);
+                    i.Images[0].Path = Path.Combine(configuration.Value.ImagesFolder, i.Images[0].Path);
                 }
                 else
                 {
-                    cover = new Image(pathToPlaceholder);
+                    i.Images[0] = new Image(pathToPlaceholder);
                 }
 
-                return new SearchViewModel { Item = item, Cover = cover };
+                return i;
             }).ToArray();
 
-            return data.ToArray();
+            return items;
         }
     }
 }
