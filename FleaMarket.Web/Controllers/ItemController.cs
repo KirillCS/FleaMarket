@@ -6,6 +6,7 @@ using FleaMarket.Web.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
+using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -36,24 +37,20 @@ namespace FleaMarket.Web.Controllers
 
         [HttpGet]
         [Route("api")]
-        public ActionResult<IEnumerable<Item>> Get([FromQuery]string searchString = "")
+        public ActionResult<IEnumerable<Item>> Get([FromQuery]ItemGettingParameters parameters)
         {
-            var pathToPlaceholder = Path.Combine(configuration.Value.ImagesFolder, configuration.Value.ImagePlaceholderPath);
-            var items = unitOfWork.ItemRepository.SearchItems(searchString).Select(i =>
+            var items = unitOfWork.ItemRepository.GetItemsPage(parameters).Select(i => SetCoverPath(i)).ToArray();
+
+            var metadata = new
             {
-                if (i.Images[0] != null)
-                {
-                    i.Images[0].Path = Path.Combine(configuration.Value.ImagesFolder, i.Images[0].Path);
-                }
-                else
-                {
-                    i.Images[0] = new Image(pathToPlaceholder);
-                }
+                parameters.PageNumber,
+                parameters.PageSize,
+                TotalNumber = unitOfWork.ItemRepository.GetPagesCount(parameters)
+            };
 
-                return i;
-            }).ToArray();
+            Response.Headers.Add("Pagination-Data", JsonConvert.SerializeObject(metadata));
 
-            return items;
+            return Ok(items);
         }
 
         [HttpGet]
@@ -88,6 +85,21 @@ namespace FleaMarket.Web.Controllers
             itemService.AddAndSaveItem(item);
 
             return Redirect("/");
+        }
+
+        private Item SetCoverPath(Item item)
+        {
+            var pathToPlaceholder = Path.Combine(configuration.Value.ImagesFolder, configuration.Value.ImagePlaceholderPath);
+            if (item.Images[0] != null)
+            {
+                item.Images[0].Path = Path.Combine(configuration.Value.ImagesFolder, item.Images[0].Path);
+            }
+            else
+            {
+                item.Images[0] = new Image(pathToPlaceholder);
+            }
+
+            return item;
         }
     }
 }

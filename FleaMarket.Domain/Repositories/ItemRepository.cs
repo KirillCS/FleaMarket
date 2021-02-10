@@ -1,6 +1,7 @@
 ﻿using FleaMarket.Interfaces.Repositories;
 using FleaMarket.Models;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -10,11 +11,14 @@ namespace FleaMarket.Domain.Repositories
     {
         public ItemRepository(DatabaseContext context) : base(context) { }
 
-        public IEnumerable<Item> SearchItems(string searchString)
+        public IEnumerable<Item> GetItemsPage(ItemGettingParameters parameters)
         {
-            searchString ??= string.Empty;
+            int skipSize = (parameters.PageSize * parameters.PageNumber) - parameters.PageSize;
+            string searchString = parameters.SearchString ?? string.Empty;
 
             return context.Items.Include(it => it.Categories)
+                                .Skip(skipSize)
+                                .Take(parameters.PageSize)
                                 .Where(it => it.Name.Contains(searchString) || it.Description.Contains(searchString))
                                 .OrderByDescending(i => i.PublishingDate)
                                 .GroupJoin(context.Images.Where(im => im.IsCover), it => it.Id, im => im.ItemId, (it, im) => new { it, im })
@@ -33,24 +37,12 @@ namespace FleaMarket.Domain.Repositories
                                 .ToArray();
         }
 
-        public Image GetCoverByItemId(int id)
+        public int GetPagesCount(ItemGettingParameters parameters)
         {
-            return context.Images.FirstOrDefault(i => i.IsCover && i.ItemId == id);
-        }
+            string searchString = parameters.SearchString ?? string.Empty;
+            double itemsCount = context.Items.Count(it => it.Name.Contains(searchString) || it.Description.Contains(searchString));
 
-        public IEnumerable<Image> GetAllCovers()
-        {
-            return context.Images.Where(i => i.IsCover).ToList();
-        }
-
-        public IEnumerable<Item> GetAllItemsWithCategories()
-        {
-            return context.Items.Include(i => i.Categories).OrderByDescending(i => i.PublishingDate).ToList();
-        }
-
-        public Category GetCategoryById(int id)
-        {
-            return context.Categories.Find(id);
+            return (int)Math.Round(itemsCount / parameters.PageSize, MidpointRounding.ToPositiveInfinity);
         }
 
         public IEnumerable<Category> GetCategoriesByCollectionId(IEnumerable<int> ids)

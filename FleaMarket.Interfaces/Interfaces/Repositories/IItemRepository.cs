@@ -5,15 +5,9 @@ namespace FleaMarket.Interfaces.Repositories
 {
     public interface IItemRepository : IRepository<Item, int>
     {
-        IEnumerable<Item> SearchItems(string searchString);
+        IEnumerable<Item> GetItemsPage(ItemGettingParameters parameters);
 
-        Image GetCoverByItemId(int id);
-
-        IEnumerable<Item> GetAllItemsWithCategories();
-
-        IEnumerable<Image> GetAllCovers();
-
-        Category GetCategoryById(int id);
+        int GetPagesCount(ItemGettingParameters parameters);
 
         IEnumerable<Category> GetCategoriesByCollectionId(IEnumerable<int> ids);
 

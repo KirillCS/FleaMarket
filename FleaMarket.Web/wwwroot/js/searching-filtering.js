@@ -37,7 +37,8 @@
             complete: function () {
                 $(loading).hide();
             },
-            success: function (data) {
+            success: function (data, status, response) {
+                console.log(response.getAllResponseHeaders());
                 if ($(input).val().length) {
                     $(resultLabel).html(`Search result by "${$(input).val()}"`).show();
                 }
