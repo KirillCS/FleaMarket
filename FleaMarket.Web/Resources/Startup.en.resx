@@ -117,13 +117,64 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Categories" xml:space="preserve">
+    <value>Categories</value>
+  </data>
+  <data name="Cover" xml:space="preserve">
+    <value>Cover</value>
+  </data>
+  <data name="DontMatch" xml:space="preserve">
+    <value>Passwords don't match</value>
+  </data>
   <data name="Login" xml:space="preserve">
     <value>Login</value>
+  </data>
+  <data name="MaximumLengthError" xml:space="preserve">
+    <value>The maximum name lenght is {1} characters</value>
+  </data>
+  <data name="MustConfirm" xml:space="preserve">
+    <value>You must confirm your password</value>
   </data>
   <data name="MyItems" xml:space="preserve">
     <value>My items</value>
   </data>
+  <data name="Name" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="NamePrompt" xml:space="preserve">
+    <value>For example: Smartphone "Apple"</value>
+  </data>
+  <data name="NoSelectedError" xml:space="preserve">
+    <value>Select the category (-ies) of your item</value>
+  </data>
+  <data name="Password" xml:space="preserve">
+    <value>Password</value>
+  </data>
+  <data name="PasswordConfirm" xml:space="preserve">
+    <value>Password confirmation</value>
+  </data>
+  <data name="Photos" xml:space="preserve">
+    <value>Photos</value>
+  </data>
+  <data name="Price" xml:space="preserve">
+    <value>Price</value>
+  </data>
+  <data name="PricePrompt" xml:space="preserve">
+    <value>For example: 299.99</value>
+  </data>
+  <data name="RememberMe" xml:space="preserve">
+    <value>Remember me?</value>
+  </data>
+  <data name="RememberMe1" xml:space="preserve">
+    <value>Remember me?</value>
+  </data>
+  <data name="RequiredFieldError" xml:space="preserve">
+    <value>This field is required</value>
+  </data>
   <data name="SignUp" xml:space="preserve">
     <value>Sign up</value>
+  </data>
+  <data name="TradeEnabled" xml:space="preserve">
+    <value>Exchange is possible</value>
   </data>
 </root>

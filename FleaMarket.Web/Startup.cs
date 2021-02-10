@@ -50,7 +50,7 @@ namespace FleaMarket.Web
 
             services.AddControllersWithViews()
                     .AddViewLocalization(LanguageViewLocationExpanderFormat.Suffix)
-                    .AddDataAnnotationsLocalization()
+                    .AddDataAnnotationsLocalization(options => options.DataAnnotationLocalizerProvider = (type, factory) => factory.Create(typeof(Startup)))
                     .AddNewtonsoftJson(options => options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
         }
 
