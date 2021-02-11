@@ -3,7 +3,6 @@ using FleaMarket.Web.ViewModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Localization;
-using System.Diagnostics;
 using System.Threading.Tasks;
 
 namespace FleaMarket.Web.Controllers
@@ -65,7 +64,6 @@ namespace FleaMarket.Web.Controllers
                 var result = await signInManager.PasswordSignInAsync(model.Name, model.Password, model.IsPersistent, false);
                 if (result.Succeeded)
                 {
-                    Debug.WriteLine(Url.Action());
                     if (!string.IsNullOrEmpty(model.ReturnUrl) && Url.IsLocalUrl(model.ReturnUrl) && model.ReturnUrl != Url.Action())
                     {
                         return Redirect(model.ReturnUrl);
