@@ -18,7 +18,7 @@ namespace FleaMarket.Domain.Repositories
             return context.Items.Include(it => it.Categories)
                                 .Skip(skipSize)
                                 .Take(parameters.PageSize)
-                                .Where(it => it.Name.Contains(searchString) || it.Description.Contains(searchString))
+                                .Where(it => it.Name.Contains(searchString) || it.Description.Contains(searchString) || it.Categories.Any(c => parameters.Categories.Any(pc => pc == c.Id)))
                                 .OrderByDescending(i => i.PublishingDate)
                                 .GroupJoin(context.Images.Where(im => im.IsCover), it => it.Id, im => im.ItemId, (it, im) => new { it, im })
                                 .SelectMany(temp => temp.im.DefaultIfEmpty(), (temp, im) =>
