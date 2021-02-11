@@ -11,35 +11,31 @@
     let itemTemplate = $('li:first', itemsList);
     let paginator = ('#paginator');
 
-    initPaginator();
+    reloadPaginator();
 
     $(searchInput).keypress(function (e) {
-        if (e.keyCode !== 13) {
-            return;
+        if (e.keyCode === 13) {
+            reloadPaginator();
         }
-
-        $(noItemLabel).hide();
-        initPaginator();
     });
 
     $(clearSearchButton).click(function () {
         searchInput.val('');
-        $(noItemLabel).hide();
-        initPaginator();
+        reloadPaginator();
     });
 
     $(filterButton).click(function () {
-        initPaginator();
+        reloadPaginator();
     });
 
     $(clearFilterButton).click(function () {
-        clearFilters();
-        initPaginator();
+        resetFilters();
+        reloadPaginator();
     });
 
-    function initPaginator() {
+    function reloadPaginator() {
         $(paginator).pagination({
-            dataSource: 'https://localhost:44332/item/api',
+            dataSource: `${window.location.protocol}//${window.location.host}/item/api`,
             ajax: {
                 data: {
                     searchString: $(searchInput).val(),
@@ -83,7 +79,7 @@
         });
     }
 
-    function clearFilters() {
+    function resetFilters() {
         $('input:checked', categoriesFilter).each(function () {
             $(this).prop('checked', false);
         });
