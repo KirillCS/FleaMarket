@@ -50,6 +50,24 @@ namespace FleaMarket.Web.Controllers
         }
 
         [HttpGet]
+        [Route("item")]
+        public IActionResult GetItemPage([FromQuery]int? id)
+        {
+            if (id is null)
+            {
+                return NotFound();
+            }
+
+            var item = unitOfWork.ItemRepository.GetFullItemById(id.Value);
+            if (item is null)
+            {
+                return NotFound();
+            }
+
+            return View(item);
+        }
+
+        [HttpGet]
         [Authorize]
         [Route("[action]")]
         public IActionResult Create()

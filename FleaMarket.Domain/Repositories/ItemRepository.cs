@@ -44,6 +44,14 @@ namespace FleaMarket.Domain.Repositories
             return context.Items.Count(it => (it.Name.Contains(searchString) || it.Description.Contains(searchString)) && (!parameters.Categories.Any() || it.Categories.Any(c => parameters.Categories.Any(pc => pc == c.Id))));
         }
 
+        public Item GetFullItemById(int id)
+        {
+            return context.Items.Include(i => i.User)
+                                .Include(i => i.Categories)
+                                .Include(i => i.Images)
+                                .FirstOrDefault(i => i.Id == id);
+        }
+
         public IEnumerable<Category> GetCategoriesByCollectionId(IEnumerable<int> ids)
         {
             var categories = new List<Category>();

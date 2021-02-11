@@ -9,6 +9,8 @@ namespace FleaMarket.Interfaces.Repositories
 
         int GetItemsCount(ItemGettingParameters parameters);
 
+        Item GetFullItemById(int id);
+
         IEnumerable<Category> GetCategoriesByCollectionId(IEnumerable<int> ids);
 
         IEnumerable<Category> GetAllCategories();
