@@ -16,10 +16,10 @@ namespace FleaMarket.Domain.Repositories
             string searchString = parameters.SearchString ?? string.Empty;
 
             return context.Items.Include(it => it.Categories)
+                                .Where(it => (it.Name.Contains(searchString) || it.Description.Contains(searchString)) && (!parameters.Categories.Any() || it.Categories.Any(c => parameters.Categories.Any(pc => pc == c.Id))))
+                                .OrderByDescending(i => i.PublishingDate)
                                 .Skip(skipSize)
                                 .Take(parameters.PageSize)
-                                .Where(it => it.Name.Contains(searchString) || it.Description.Contains(searchString) || it.Categories.Any(c => parameters.Categories.Any(pc => pc == c.Id)))
-                                .OrderByDescending(i => i.PublishingDate)
                                 .GroupJoin(context.Images.Where(im => im.IsCover), it => it.Id, im => im.ItemId, (it, im) => new { it, im })
                                 .SelectMany(temp => temp.im.DefaultIfEmpty(), (temp, im) =>
                                     new Item
@@ -40,8 +40,8 @@ namespace FleaMarket.Domain.Repositories
         public int GetItemsCount(ItemGettingParameters parameters)
         {
             string searchString = parameters.SearchString ?? string.Empty;
-
-            return context.Items.Count(it => it.Name.Contains(searchString) || it.Description.Contains(searchString));
+            
+            return context.Items.Count(it => (it.Name.Contains(searchString) || it.Description.Contains(searchString)) && (!parameters.Categories.Any() || it.Categories.Any(c => parameters.Categories.Any(pc => pc == c.Id))));
         }
 
         public IEnumerable<Category> GetCategoriesByCollectionId(IEnumerable<int> ids)

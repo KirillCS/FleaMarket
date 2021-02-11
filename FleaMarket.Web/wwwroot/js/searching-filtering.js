@@ -1,7 +1,10 @@
 ﻿$(document).ready(function () {
-    let input = $('#js-search-input');
-    let clearButton = $('#js-clear-search-button');
+    let searchInput = $('#js-search-input');
+    let clearSearchButton = $('#js-clear-search-button');
     let resultLabel = $('#js-search-result-label');
+    let categoriesFilter = $('#js-categories-filter');
+    let filterButton = $('#js-filter-button');
+    let clearFilterButton = $('#js-clear-filter-button');
     let loading = $('#js-loading');
     let noItemLabel = $('#js-no-items-label');
     let itemsList = $('#js-items-list');
@@ -10,20 +13,27 @@
 
     initPaginator();
 
-    $(input).keypress(function (e) {
+    $(searchInput).keypress(function (e) {
         if (e.keyCode !== 13) {
             return;
         }
 
-        $(resultLabel).hide();
         $(noItemLabel).hide();
         initPaginator();
     });
 
-    $(clearButton).click(function () {
-        input.val('');
-        $(resultLabel).hide();
+    $(clearSearchButton).click(function () {
+        searchInput.val('');
         $(noItemLabel).hide();
+        initPaginator();
+    });
+
+    $(filterButton).click(function () {
+        initPaginator();
+    });
+
+    $(clearFilterButton).click(function () {
+        clearFilters();
         initPaginator();
     });
 
@@ -32,7 +42,8 @@
             dataSource: 'https://localhost:44332/item/api',
             ajax: {
                 data: {
-                    searchString: $(input).val()
+                    searchString: $(searchInput).val(),
+                    categories: getSelectedCategories()
                 },
                 beforeSend: function () {
                     $("html, body").animate({ scrollTop: 0 }, 200);
@@ -53,8 +64,10 @@
             hideWhenLessThanOnePage: true,
             callback: function (data) {
                 itemsList.html('');
-                if ($(input).val().length) {
-                    $(resultLabel).html(`Search result by "${$(input).val()}"`).show();
+                if ($(searchInput).val().length) {
+                    $(resultLabel).html(`Search result by "${$(searchInput).val()}"`).show();
+                } else {
+                    $(resultLabel).hide();
                 }
 
                 if (!data.length) {
@@ -68,6 +81,22 @@
                 }
             }
         });
+    }
+
+    function clearFilters() {
+        $('input:checked', categoriesFilter).each(function () {
+            $(this).prop('checked', false);
+        });
+    }
+
+    function getSelectedCategories() {
+        let categoriesIds = {}
+        let i = 0;
+        $('input:checked', categoriesFilter).each(function () {
+            categoriesIds[i++] = $(this).val();
+        })
+
+        return categoriesIds;
     }
 
     function appendItemToList(itemsList, itemData) {

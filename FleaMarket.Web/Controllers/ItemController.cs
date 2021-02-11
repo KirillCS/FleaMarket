@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using FleaMarket.Business.Extensions;
 using FleaMarket.Interfaces.Repositories;
 using FleaMarket.Interfaces.Services;
 using FleaMarket.Models;
